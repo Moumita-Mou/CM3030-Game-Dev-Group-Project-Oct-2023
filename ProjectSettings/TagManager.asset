@@ -13,10 +13,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - PlayerWeapon
+  - Enemy
+  - Dungeon
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Characters
+    uniqueID: 2916134035
+    locked: 0
+  - name: AboveCharacters
+    uniqueID: 257631367
     locked: 0
