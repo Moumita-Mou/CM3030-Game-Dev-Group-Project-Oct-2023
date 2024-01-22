@@ -12,11 +12,14 @@ namespace Scripts.Player
 
         [Header("Gameplay Settings")]
         [SerializeField] private float moveSpeed = 4;
+        [SerializeField] private float pickupOffset = 0.15f;
 
         [SerializeField] private int mainWeaponMouseButton = 0;
         [SerializeField] private int secondaryWeaponMouseButton = 1;
 
         private bool isWalking;
+        private GameObject holdingItem = null;
+        private GameObject canInteract = null;
 
         void FixedUpdate()
         {
@@ -46,6 +49,50 @@ namespace Scripts.Player
             visual.UpdateHands(isWalking, 
                 Input.GetMouseButton(secondaryWeaponMouseButton), 
                 Input.GetMouseButton(mainWeaponMouseButton));
+
+            applyInteractionLogic();
+        }
+
+        private void applyInteractionLogic()
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (canInteract != null && holdingItem == null)
+                {
+                    if (canInteract.CompareTag("PickUp"))
+                    {
+                        holdingItem = canInteract;
+                        canInteract = null;
+                    }
+                }
+                else if (holdingItem != null)
+                {
+                    holdingItem.transform.position = BigBadSingleton.Instance.GameplayManager.getGridCenterInWorldPos(transform.position);
+                    holdingItem = null;
+                }
+            }
+
+            if (holdingItem != null)
+            {
+                holdingItem.transform.position = new Vector2(transform.position.x, transform.position.y + pickupOffset);
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collider)
+        {
+            if (collider.CompareTag("PickUp"))
+            {
+                canInteract = collider.gameObject;
+            }
+
+        }
+
+        private void OnTriggerExit2D(Collider2D collider)
+        {
+            if (collider.CompareTag("PickUp"))
+            {
+                canInteract = null;
+            }
         }
     }
 }
