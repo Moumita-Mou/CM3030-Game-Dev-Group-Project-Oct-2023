@@ -1,0 +1,48 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FirstPuzzleManager : MonoBehaviour
+{
+    [SerializeField] List<PressurePlate> pressurePlates;
+    [SerializeField] GameObject barrierPrefab;
+    [SerializeField] Vector3 barrierPos;
+    private GameObject barrier;
+
+    private void Start()
+    {
+        spawnBarrier();
+    }
+
+    private void Update()
+    {
+        bool doorOpen = isDoorOpen();
+        if (!doorOpen && barrier == null)
+            spawnBarrier();
+
+        if (doorOpen && barrier != null)
+            despawnBarrier();
+
+        Debug.Log(doorOpen);
+    }
+
+    private bool isDoorOpen()
+    {
+        foreach (PressurePlate pressurePlate in pressurePlates)
+            if (pressurePlate.getState() == 0)
+                return false;
+
+        return true;
+    }
+
+    private void spawnBarrier()
+    {
+        barrier = Instantiate(barrierPrefab, barrierPos, Quaternion.identity);
+    }
+
+    private void despawnBarrier()
+    {
+        Destroy(barrier);
+        barrier = null;
+    }
+}

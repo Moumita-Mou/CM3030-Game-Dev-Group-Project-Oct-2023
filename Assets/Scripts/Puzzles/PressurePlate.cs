@@ -10,6 +10,8 @@ public class PressurePlate : MonoBehaviour
     int state = 0;
     SpriteRenderer spriteRenderer;
 
+    public int getState() {return state;}
+
     private void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
