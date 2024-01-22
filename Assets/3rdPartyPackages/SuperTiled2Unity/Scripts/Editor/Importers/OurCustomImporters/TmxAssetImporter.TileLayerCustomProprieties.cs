@@ -83,7 +83,7 @@ namespace SuperTiled2Unity.Editor
                     {
                         case CustomStringConstants.Custom_Type_RemoveColliders:
                             tilesToRemoveCollision.Add(tileKey);
-                        break;
+                            break;
                     }
                 }
             }

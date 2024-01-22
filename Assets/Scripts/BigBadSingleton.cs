@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using Scripts.Map;
+using Scripts.Player;
 using UnityEngine;
 
 namespace Scripts
@@ -25,7 +27,9 @@ namespace Scripts
         private void Start()
         {
             var allMapsInScene = FindObjectsOfType<MapEntry>();
+            var player = FindObjectsOfType<PlayerController>().FirstOrDefault();
             gamePlayManager.LoadSceneMaps(allMapsInScene);
+            gamePlayManager.LoadPlayer(player);
         }
 
         private void Reset()
