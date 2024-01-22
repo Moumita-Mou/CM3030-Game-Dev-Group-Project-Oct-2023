@@ -6,12 +6,41 @@ namespace Scripts.Map
 {
     public class MapEntry : MonoBehaviour
     {
+        private static int GlobalIdIndex = 0;        
+        
+        public int Id { get; private set; }
         [SerializeField] private SuperMap map;
         [SerializeField] private Grid grid;
         [SerializeField] private MapEntry[] adjacentMaps;
+        [SerializeField] private EnemySpawnPoint[] spawnPoints;
 
         private const short mapMinPosX = 0;
         private const short mapMinPosY = -1;
+
+        public void Awake()
+        {
+            Id = GlobalIdIndex;
+            GlobalIdIndex++;
+
+            spawnPoints = GetComponentsInChildren<EnemySpawnPoint>();
+        }
+
+        public bool TryGetRandomSpawnPosition(out Vector3 position)
+        {
+            if (spawnPoints.Length > 0)
+            {
+                var randomPoint = spawnPoints[Mathf.RoundToInt(Random.value * (spawnPoints.Length - 1))]
+                    .transform.position;
+                if (IsWorldPosInsideMap(randomPoint, out var gridPos))
+                {
+                    position = GetWorldPosAtCenterOfGridPos(gridPos);
+                    return true;
+                }
+            }
+
+            position = Vector3.zero;
+            return false;
+        }
 
         public bool IsWorldPosInsideMap(Vector3 worldPos, out Vector2Int gridPos)
         {

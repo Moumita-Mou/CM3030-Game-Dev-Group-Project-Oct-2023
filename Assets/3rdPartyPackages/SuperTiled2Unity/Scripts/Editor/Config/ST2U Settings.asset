@@ -54,4 +54,7 @@ MonoBehaviour:
   - {r: 0, g: 1, b: 1, a: 1}
   - {r: 0.7372549, g: 0.56078434, b: 0.56078434, a: 1}
   m_CustomObjectTypes: []
-  m_PrefabReplacements: []
+  m_PrefabReplacements:
+  - m_TypeName: EnemySpawnPoint
+    m_Prefab: {fileID: 4435158625232953656, guid: e46e0963da185ea4499caa4777e9f205,
+      type: 3}
