@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FirstPuzzleManager : MonoBehaviour
+public class SecondPuzzleManager : MonoBehaviour
 {
-    [SerializeField] List<PressurePlate> pressurePlates;
+    [SerializeField] List<LightBulb> lightBulbs;
     [SerializeField] GameObject barrierPrefab;
     [SerializeField] Vector3 barrierPos;
     private GameObject barrier;
@@ -26,8 +26,8 @@ public class FirstPuzzleManager : MonoBehaviour
 
     private bool isDoorOpen()
     {
-        foreach (PressurePlate pressurePlate in pressurePlates)
-            if (pressurePlate.getState() == 0)
+        foreach (LightBulb lightBulb in lightBulbs)
+            if (lightBulb.getState() == 0)
                 return false;
 
         return true;
