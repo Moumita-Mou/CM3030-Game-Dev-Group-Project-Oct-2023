@@ -1219,8 +1219,8 @@ MonoBehaviour:
   enemiesContainer: {fileID: 1522889534}
   lifebar: {fileID: 748911715}
   stopSpawning: 0
-  spawnTimer: 1
-  spawnDelay: 30
+  spawnTimer: 10
+  spawnDelay: 10
   bgAudio: {fileID: 15231721}
   GameOver:
     m_PersistentCalls:
@@ -1236,6 +1236,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  waveNumber: 0
+  enemyType: 0
 --- !u!114 &1278212880
 MonoBehaviour:
   m_ObjectHideFlags: 0

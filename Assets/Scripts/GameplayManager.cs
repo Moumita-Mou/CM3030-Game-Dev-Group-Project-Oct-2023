@@ -42,8 +42,9 @@ namespace Scripts
         //private List<GameObject> enemies;
         private GameObject[] enemies;
 
-        // Boolean to check if enemy wave has been cleared
-        private bool waveCleared;
+        // Enemy type select
+        [SerializeField] private int waveNumber = 0;
+        [SerializeField] private EnemyType enemyType;
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private PlayerController player;
@@ -164,13 +165,23 @@ namespace Scripts
                 bgAudio.playCombatMusic();
             }
 
+            // Determine enemy type based on wave number
+            if (waveNumber % 2 == 0)
+            {
+                enemyType = EnemyType.Thing;
+            }
+            else
+            {
+                enemyType = EnemyType.Crab;
+            }
+
             // Spawn multiple enemies
             for (int i = 0; i < 4; i++)
             {
 
                 if (currentMap.TryGetSpawnPosition(i, out var position))
                 {
-                    var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Crab);
+                    var newEnemy = enemyPalette.GetEnemyPrefab(enemyType);
                     Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
                 }
             }
@@ -184,8 +195,8 @@ namespace Scripts
                 bgAudio.WaveAlertSound();
             }
 
-            waveCleared = false;    
-            
+            waveNumber++;
+
             // Delay the spawning of enemies until the count-down is complete
             Invoke("EnemyWaveSpawner", 4.25f);
         }
