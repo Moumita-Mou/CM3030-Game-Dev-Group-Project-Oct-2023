@@ -162,6 +162,7 @@ namespace Scripts
         {
             if(bgAudio.combatMusic.isPlaying == false)
             {
+                bgAudio.combatMusic.volume = 1.0f;
                 bgAudio.playCombatMusic();
             }
 
