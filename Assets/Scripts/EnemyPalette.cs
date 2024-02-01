@@ -7,6 +7,7 @@ namespace Scripts
     public enum EnemyType
     {
         Crab,
+        Cyclops
     }
 
     [Serializable]
