@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Scripts.Weapons;
+using UnityEngine.Events;
 
 namespace Scripts.Character
 {
@@ -9,6 +10,9 @@ namespace Scripts.Character
         [SerializeField] private Animator handAnimation;
         [SerializeField] private Transform handPivot;
 
+        [Header("Events")]
+        [SerializeField] UnityEvent PlaySound;
+
         public void UpdateHand(bool isWalking, bool isAttacking)
         {
             if (isAttacking && weapon.CanFire())
@@ -16,6 +20,7 @@ namespace Scripts.Character
                 weapon.Fire();
                 handAnimation.SetFloat("AttackSpeed", weapon.GetAttackSpeed());
                 handAnimation.SetTrigger("Attack");
+                PlaySound?.Invoke();
             }
             
             handAnimation.SetBool("IsWalking", isWalking);

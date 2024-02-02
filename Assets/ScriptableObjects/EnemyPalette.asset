@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: EnemyPalette
   m_EditorClassIdentifier: 
   enemyPrefabs:
-    m_keys: 00000000
+    m_keys: 0000000001000000
     m_values:
     - {fileID: 1253387383435174421, guid: 3212ff3d2592fce4aa4a811d0124ead5, type: 3}
+    - {fileID: 227566144098201184, guid: 21e541a7ee7c5be438a51cd8501d6e76, type: 3}
