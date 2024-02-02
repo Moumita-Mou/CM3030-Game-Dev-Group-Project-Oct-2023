@@ -116,6 +116,26 @@ namespace Scripts
             }
         }
 
+        public Vector3 getGridCenterInWorldPos(Vector3 characterPos)
+        {
+            Vector3 gridCenterInWorldPos = new Vector3();
+
+            foreach (var mapEntry in allMapsInScene)
+            {
+                if (mapEntry.IsWorldPosInsideMap(characterPos, out var gridPos))
+                {
+                    gridCenterInWorldPos = mapEntry.GetWorldPosAtCenterOfGridPos(gridPos);
+                    mapEntry.gameObject.SetActive(true);
+                }
+                else
+                {
+                    mapEntry.gameObject.SetActive(false);
+                }
+            }
+            
+            return gridCenterInWorldPos;
+        }
+
         void UpdateCurrentMap()
         {
             foreach (var mapEntry in allMapsInScene)
