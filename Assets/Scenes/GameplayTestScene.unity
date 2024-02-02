@@ -796,8 +796,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugGridPositionImage: {fileID: 459342355}
-  enemyPalette: {fileID: 0}
-  fxPalette: {fileID: 0}
+  enemyPalette: {fileID: 11400000, guid: d9bab03682b8ebc428408d9eb3f514c3, type: 2}
+  fxPalette: {fileID: 11400000, guid: 03f40c74aaa2c244893c6675932ccd59, type: 2}
   fxContainer: {fileID: 1210039914}
   enemiesContainer: {fileID: 1522889534}
   lifebar: {fileID: 748911715}
