@@ -24,6 +24,7 @@ namespace Scripts.Player
         
         [Header("Events")]
         [SerializeField] UnityEvent OnHit;
+        [SerializeField] UnityEvent OnDeath;
 
         private bool isWalking;
         private GameObject holdingItem = null;
@@ -45,6 +46,13 @@ namespace Scripts.Player
                 rigidbody2D.AddForce(col.relativeVelocity * hitImpulseForce, ForceMode2D.Impulse);
                 CurrentLife -= 1;
                 OnHit?.Invoke();
+            }
+
+            // Play game over sound when player dies
+            if (CurrentLife == 0) 
+            {
+                OnDeath?.Invoke();
+                Time.timeScale = 0.0f;
             }
         }
 

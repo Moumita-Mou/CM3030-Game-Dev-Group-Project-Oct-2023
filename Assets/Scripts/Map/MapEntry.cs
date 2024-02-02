@@ -25,6 +25,7 @@ namespace Scripts.Map
             spawnPoints = GetComponentsInChildren<EnemySpawnPoint>();
         }
 
+        // Spawn an enemy at a random spawn-point
         public bool TryGetRandomSpawnPosition(out Vector3 position)
         {
             if (spawnPoints.Length > 0)
@@ -32,6 +33,22 @@ namespace Scripts.Map
                 var randomPoint = spawnPoints[Mathf.RoundToInt(Random.value * (spawnPoints.Length - 1))]
                     .transform.position;
                 if (IsWorldPosInsideMap(randomPoint, out var gridPos))
+                {
+                    position = GetWorldPosAtCenterOfGridPos(gridPos);
+                    return true;
+                }
+            }
+
+            position = Vector3.zero;
+            return false;
+        }
+
+        // Spawn enemies at a specific spawn point (used in GameplayManager to spawn an enemy at each spawn-point at once)
+        public bool TryGetSpawnPosition(int spawnPoint, out Vector3 position)
+        {
+            if (spawnPoints.Length > 0)
+            {
+                if (IsWorldPosInsideMap(spawnPoints[spawnPoint].transform.position, out var gridPos))
                 {
                     position = GetWorldPosAtCenterOfGridPos(gridPos);
                     return true;
