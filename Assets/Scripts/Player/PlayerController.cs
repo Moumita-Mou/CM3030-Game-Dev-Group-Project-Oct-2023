@@ -14,6 +14,7 @@ namespace Scripts.Player
 
         [Header("Gameplay Settings")]
         [SerializeField] private float moveSpeed = 4;
+        [SerializeField] private float pickupOffset = 0.15f;
         [SerializeField] private int totalLife = 3;
         [SerializeField] private float hitImpulseForce = 10f;
         [SerializeField] private LayerMask hitMask;
@@ -23,8 +24,11 @@ namespace Scripts.Player
         
         [Header("Events")]
         [SerializeField] UnityEvent OnHit;
+        [SerializeField] UnityEvent OnDeath;
 
         private bool isWalking;
+        private GameObject holdingItem = null;
+        private GameObject canInteract = null;
 
         public int TotalLife => totalLife;
 
@@ -42,6 +46,13 @@ namespace Scripts.Player
                 rigidbody2D.AddForce(col.relativeVelocity * hitImpulseForce, ForceMode2D.Impulse);
                 CurrentLife -= 1;
                 OnHit?.Invoke();
+            }
+
+            // Play game over sound when player dies
+            if (CurrentLife == 0) 
+            {
+                OnDeath?.Invoke();
+                Time.timeScale = 0.0f;
             }
         }
 
@@ -73,6 +84,54 @@ namespace Scripts.Player
             visual.UpdateHands(isWalking, 
                 Input.GetMouseButton(secondaryWeaponMouseButton), 
                 Input.GetMouseButton(mainWeaponMouseButton));
+
+            applyInteractionLogic();
+        }
+
+        private void applyInteractionLogic()
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (canInteract != null && holdingItem == null)
+                {
+                    if (canInteract.CompareTag("PickUp"))
+                    {
+                        holdingItem = canInteract;
+                        canInteract = null;
+                    }
+                    else if (canInteract.CompareTag("Lever"))
+                    {
+                        canInteract.GetComponent<Lever>().changeState();
+                    }
+                }
+                else if (holdingItem != null)
+                {
+                    holdingItem.transform.position = BigBadSingleton.Instance.GameplayManager.getGridCenterInWorldPos(transform.position);
+                    holdingItem = null;
+                }
+            }
+
+            if (holdingItem != null)
+            {
+                holdingItem.transform.position = new Vector2(transform.position.x, transform.position.y + pickupOffset);
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collider)
+        {
+            if (collider.CompareTag("PickUp") || collider.CompareTag("Lever"))
+            {
+                canInteract = collider.gameObject;
+            }
+
+        }
+
+        private void OnTriggerExit2D(Collider2D collider)
+        {
+            if (collider.CompareTag("PickUp") || collider.CompareTag("Lever"))
+            {
+                canInteract = null;
+            }
         }
     }
 }
