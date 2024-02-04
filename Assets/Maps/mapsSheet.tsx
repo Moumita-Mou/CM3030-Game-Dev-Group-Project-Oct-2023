@@ -46,7 +46,7 @@
    <property name="custom:tileType" value="door"/>
   </properties>
  </tile>
- <tile id="13">
+ <tile id="13" probability="0.02">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
@@ -91,7 +91,7 @@
    <property name="custom:tileType" value="door"/>
   </properties>
  </tile>
- <tile id="26">
+ <tile id="26" probability="0.02">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
@@ -146,6 +146,7 @@
    <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
  </tile>
+ <tile id="45" probability="0.02"/>
  <tile id="48">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
@@ -166,6 +167,9 @@
    <property name="custom:tileType" value="door"/>
   </properties>
  </tile>
+ <tile id="53" probability="0.03"/>
+ <tile id="54" probability="0.7"/>
+ <tile id="55" probability="0.3"/>
  <tile id="61">
   <objectgroup draworder="index" id="2">
    <object id="1" x="0" y="0" width="16" height="16"/>
