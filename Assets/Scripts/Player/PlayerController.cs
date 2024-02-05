@@ -26,6 +26,8 @@ namespace Scripts.Player
         [SerializeField] UnityEvent OnHit;
         [SerializeField] UnityEvent OnDeath;
 
+        public Rigidbody2D Rigidbody => rigidbody2D;
+
         private bool isWalking;
         private GameObject holdingItem = null;
         private GameObject canInteract = null;
@@ -43,8 +45,12 @@ namespace Scripts.Player
         {
             if (hitMask == (hitMask | 1 << col.gameObject.layer))
             {
+                BigBadSingleton.Instance.GameplayManager.DoSlowmoFX(0.1f, 0.0f);
                 rigidbody2D.AddForce(col.relativeVelocity * hitImpulseForce, ForceMode2D.Impulse);
                 CurrentLife -= 1;
+                
+                BigBadSingleton.Instance.GameplayManager.DoCameraShake();
+                
                 OnHit?.Invoke();
             }
 

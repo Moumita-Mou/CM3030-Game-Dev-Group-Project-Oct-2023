@@ -20,9 +20,9 @@ TagManager:
   - PlayerWeapon
   - Enemy
   - Dungeon
-  - 
-  - 
-  - 
+  - EnemyNoCollision
+  - EnemyProjectile
+  - EnemyCorpse
   - 
   - 
   - 

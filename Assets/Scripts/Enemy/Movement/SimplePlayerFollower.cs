@@ -4,15 +4,14 @@ namespace Scripts.Map.Movement
 {
     public class SimplePlayerFollower : IPlayerFollower
     {
-        public Vector2 GetMoveDirection(Vector3 worldPosition, out float sqrDistance)
+        public Vector3 GetMoveDirection(Vector3 worldPosition, out float sqrDistance)
         {
-            var playerGridPos = BigBadSingleton.Instance.GameplayManager.GetPlayerGridPosition();
-            var gridPos = BigBadSingleton.Instance.GameplayManager.GetGridPosition(worldPosition, out var mapId);
+            var playerGridPos = BigBadSingleton.Instance.GameplayManager.GetPlayerWorldPosition();
 
-            var dir = playerGridPos - gridPos;
+            var dir = playerGridPos - worldPosition;
             sqrDistance = dir.sqrMagnitude;
 
-            return dir;
+            return dir.normalized;
         }
     }
 }

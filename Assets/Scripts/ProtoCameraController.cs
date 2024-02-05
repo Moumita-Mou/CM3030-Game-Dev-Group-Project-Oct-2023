@@ -18,6 +18,13 @@ namespace Scripts
         private float shakeTotalDuration = 0;
         private float shakeTimer = 0;
 
+        public void SetTarget(GameObject target)
+        {
+            objectToFollow = target;
+            var pos = objectToFollow.transform.position;
+            transform.position = new Vector3(pos.x, pos.y, transform.position.z);
+        }
+
         public void DoShake()
         {
             shakeIntensity = playerHitShakeIntensity;
@@ -33,19 +40,21 @@ namespace Scripts
 
             var targetPosition = new Vector3(objectToFollowPos.x, objectToFollowPos.y, currentPos.z);
 
-            transform.position = Vector3.SmoothDamp(currentPos, targetPosition,
-                ref currentVelocity, smoothTime, maxSpeed);
-
             if (shakeTotalDuration > 0)
             {
                 float currentIntensity = Mathf.Lerp(shakeIntensity, 0, shakeTimer / shakeTotalDuration);
-                transform.position += Random.insideUnitSphere * currentIntensity;
+                targetPosition += Random.insideUnitSphere * currentIntensity;
                 shakeTimer += shakeTotalDuration;
                 if (shakeTimer >= shakeTotalDuration)
                 {
                     shakeTotalDuration = 0;
                 }
+
+                smoothTime = 0.02f;
             }
+            
+            transform.position = Vector3.SmoothDamp(currentPos, targetPosition,
+                ref currentVelocity, smoothTime, maxSpeed);
         }
     }
 }

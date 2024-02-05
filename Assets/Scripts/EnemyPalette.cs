@@ -6,8 +6,9 @@ namespace Scripts
 {
     public enum EnemyType
     {
-        Crab,
-        Thing
+        None = 0,
+        Crab = 1,
+        Ghost = 2
     }
 
     [Serializable]
