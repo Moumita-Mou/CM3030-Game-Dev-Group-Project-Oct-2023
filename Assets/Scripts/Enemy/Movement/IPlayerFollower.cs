@@ -9,7 +9,7 @@ namespace Scripts.Map.Movement
     
     public interface IPlayerFollower
     {
-        Vector2 GetMoveDirection(Vector3 worldPosition, out float sqrDistance);
+        Vector3 GetMoveDirection(Vector3 worldPosition, out float sqrDistance);
     }
 
     public static class PlayerFollowerTypeExtensions

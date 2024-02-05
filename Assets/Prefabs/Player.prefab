@@ -51,11 +51,11 @@ MonoBehaviour:
   collider: {fileID: 8428111412201522298}
   rigidbody2D: {fileID: 8428111411363024986}
   moveSpeed: 0.5
-  totalLife: 4
+  totalLife: 3
   hitImpulseForce: 10
   hitMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 9216
   mainWeaponMouseButton: 0
   secondaryWeaponMouseButton: 1
   OnHit:
@@ -74,6 +74,17 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 0}
         m_MethodName: DoShake
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7127422333413580269}
+        m_MethodName: Play
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -104,20 +115,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &8428111411479886961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8599278772434818556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fad1c5ab1ad4852b3a368971b6fbb3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: {r: 1, g: 0, b: 0, a: 1}
-  duration: 0.1
 --- !u!1 &8428111412201522297
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,6 +162,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.065
+--- !u!114 &8428111411479886961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8599278772434818556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fad1c5ab1ad4852b3a368971b6fbb3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  duration: 0.1
 --- !u!1001 &2794389372632534316
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -181,6 +192,11 @@ PrefabInstance:
         type: 3}
       propertyPath: collisionRect.height
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4431077588724963407, guid: 30cedfe0d92f67842b4d4c59a7605df9,
+        type: 3}
+      propertyPath: contactFilter2D.layerMask.m_Bits
+      value: 5120
       objectReference: {fileID: 0}
     - target: {fileID: 5922516053211414551, guid: 30cedfe0d92f67842b4d4c59a7605df9,
         type: 3}
@@ -283,12 +299,12 @@ PrefabInstance:
     - target: {fileID: 499675012473704879, guid: 6e770f9dd2227474987f020de1ebd0ea,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.02
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 499675012473704879, guid: 6e770f9dd2227474987f020de1ebd0ea,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.16
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 499675012473704879, guid: 6e770f9dd2227474987f020de1ebd0ea,
         type: 3}
@@ -335,6 +351,12 @@ PrefabInstance:
 --- !u!4 &7127422333413580271 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 499675012473704879, guid: 6e770f9dd2227474987f020de1ebd0ea,
+    type: 3}
+  m_PrefabInstance: {fileID: 7207592426023619648}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7127422333413580269 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 499675012473704877, guid: 6e770f9dd2227474987f020de1ebd0ea,
     type: 3}
   m_PrefabInstance: {fileID: 7207592426023619648}
   m_PrefabAsset: {fileID: 0}
