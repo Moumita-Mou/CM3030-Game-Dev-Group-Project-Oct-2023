@@ -65,6 +65,8 @@ namespace Scripts.Weapons
                         currentHits.Add(hitId);
                         if (hit.TryGetComponent<EnemyCollisionSensor>(out var sensor))
                         {
+                            BigBadSingleton.Instance.GameplayManager.DoSlowmoFX(0.1f, 0.00f);
+                            BigBadSingleton.Instance.GameplayManager.DoCameraShake();
                             sensor.Hit(this);
                         }
                     }

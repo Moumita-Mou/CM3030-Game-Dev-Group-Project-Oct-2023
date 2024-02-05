@@ -25,6 +25,7 @@ public class CrabController : MonoBehaviour
     [SerializeField] private Animator visualAnimator;
     [SerializeField] private DamageColorFX damageFX;
     [SerializeField] private EnemyCollisionSensor collisionSensor;
+    [SerializeField] private ParticleSystem bloodParticles;
 
     [Header("Settings")] 
     [SerializeField] private int lifePoints = 1;
@@ -43,6 +44,8 @@ public class CrabController : MonoBehaviour
     
     private float attackTimeStamp = 0;
     private float currentScale = 1;
+
+    private MapEntry room;
     
     private static readonly int animTrigger_attack = Animator.StringToHash("attack");
     private static readonly int animTrigger_die = Animator.StringToHash("die");
@@ -92,7 +95,7 @@ public class CrabController : MonoBehaviour
         currentScale = attackScaleChange;
         attackTimeStamp = Time.time + attackWaitTime;
         
-        rigidbody2D.AddForce(moveDir * dt, ForceMode2D.Impulse);
+        rigidbody2D.AddForce(moveDir * (attackSpeed * dt), ForceMode2D.Impulse);
         visualAnimator.SetTrigger(animTrigger_attack);
     }
 
@@ -135,6 +138,7 @@ public class CrabController : MonoBehaviour
 
     public void SpawnBigExplosion()
     {
+        bloodParticles.transform.SetParent(transform.parent);
         BigBadSingleton.Instance.GameplayManager.SpawnBigExplosionAt(transform.position);
     }
 
@@ -143,10 +147,20 @@ public class CrabController : MonoBehaviour
         BigBadSingleton.Instance.GameplayManager.SpawnFXAt(FXType.Explosion, transform.position);
     }
 
+    public void SetRoom(MapEntry room)
+    {
+        this.room = room;
+    }
+
     private void Die()
     {
         currentState = CrabState.Corpse;
+        collisionSensor.gameObject.layer = LayerMask.NameToLayer("EnemyCorpse");
         visualAnimator.SetTrigger(animTrigger_die);
+        if (room != null)
+        {
+            room.RegisterEnemyKill();
+        }
         OnDie?.Invoke();
     }
 }
