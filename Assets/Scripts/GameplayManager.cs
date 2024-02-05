@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Scripts.Map;
 using Scripts.Player;
 using Scripts.UI;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
 
 namespace Scripts
 {
@@ -16,14 +19,41 @@ namespace Scripts
         [SerializeField] private SlowMoFX slowMoFX;
         [SerializeField] private ProtoCameraController cameraController;
         [SerializeField] private PlayerController playerPrefab;
-        
+
         [Header("Containers")]
         [SerializeField] private Transform fxContainer;
         [SerializeField] private Transform enemiesContainer;
         [SerializeField] private Transform temporaryObjectsContainer;
 
-        [Header("Settings")] 
+        [Header("Settings")]
         public bool DoSlowMoFx = true;
+
+        [Header("UI")]
+        [SerializeField] private UILifeBar lifebar;
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Spawn variables for enemy wave spawning
+        [Header("Enemy Wave Spawn Perameters")]
+        [SerializeField] private bool stopSpawning;
+        [SerializeField] private float spawnTimer;
+        [SerializeField] private float spawnDelay;
+
+        // GameObject which controls background audio
+        [Header("Background Audio Object/Script")]
+        [SerializeField] private BackgroundAudio bgAudio;
+
+        //Trigger Audio and UI events
+        [Header("Events")]
+        [SerializeField] private UnityEvent GameOver;
+
+        // Array of enemies
+        //private List<GameObject> enemies;
+        private GameObject[] enemies;
+
+        // Enemy type select
+        [SerializeField] private int waveNumber = 0;
+        [SerializeField] private EnemyType enemyType;
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private PlayerController player;
         private MapEntry[] allMapsInScene = Array.Empty<MapEntry>();
@@ -33,7 +63,7 @@ namespace Scripts
 
         private float lastPlayerGridPosRequestTimeStamp = 0;
         private Vector3Int cachedPlayerGridPos;
-        
+
         private float lastPlayerPosRequestTimeStamp = 0;
         private Vector3 cachedPlayerPos;
 
@@ -56,7 +86,7 @@ namespace Scripts
         void Start()
         {
             BigBadSingleton.Instance.UIManager.RoomCompletionInfo.ShowType(UIRoomCompletionInfo.InfoType.None);
-            
+
             Time.timeScale = 0;
             fadeInComplete = false;
 
@@ -65,7 +95,7 @@ namespace Scripts
             {
                 BigBadSingleton.Instance.UIManager.SetAnnounceText(roomText);
             }
-            
+
             BigBadSingleton.Instance.UIManager.FadeScreen.DoFadeIn(1f, 0.4f, () =>
             {
                 BigBadSingleton.Instance.UIManager.Announce(roomText, 1f, () =>
@@ -90,10 +120,10 @@ namespace Scripts
                         transform);
                 }
             }
-            
+
             Assert.IsTrue(playerController != null, "Couldn't find player instance or PlayerSpawner!");
             SetupPlayer(playerController);
-            
+
             cameraController.SetTarget(playerController.gameObject);
         }
 
@@ -161,6 +191,26 @@ namespace Scripts
             }
         }
 
+        public Vector3 getGridCenterInWorldPos(Vector3 characterPos)
+        {
+            Vector3 gridCenterInWorldPos = new Vector3();
+
+            foreach (var mapEntry in allMapsInScene)
+            {
+                if (mapEntry.IsWorldPosInsideMap(characterPos, out var gridPos))
+                {
+                    gridCenterInWorldPos = mapEntry.GetWorldPosAtCenterOfGridPos(gridPos);
+                    mapEntry.gameObject.SetActive(true);
+                }
+                else
+                {
+                    mapEntry.gameObject.SetActive(false);
+                }
+            }
+
+            return gridCenterInWorldPos;
+        }
+
         void InitCurrentMap()
         {
             foreach (var mapEntry in allMapsInScene)
@@ -223,6 +273,81 @@ namespace Scripts
             Instantiate(fxPalette.GetRandomBigExplosion(), worldPos, Quaternion.identity, fxContainer);
         }
 
+        // Checks if the current 'state of the game' (is the player dead, is the game paused, is the player in combat, etc.)
+        // This is to trigger events which control background music play and possibly UI changes
+        void CheckGameState()
+        {
+            // Enemy dies and Game Over
+            if (player.CurrentLife == 0)
+            {
+                GameOver?.Invoke();
+                print("Game Over");
+                Time.timeScale = 0.0f;
+            }
+        }
+
+        // Spawns enemies into the scene and plays the combat music
+        public void EnemyWaveSpawner()
+        {
+            if(bgAudio.combatMusic.isPlaying == false)
+            {
+                bgAudio.combatMusic.volume = 1.0f;
+                bgAudio.playCombatMusic();
+            }
+
+            // Determine enemy type based on wave number
+            if (waveNumber % 2 == 0)
+            {
+                enemyType = EnemyType.Thing;
+            }
+            else
+            {
+                enemyType = EnemyType.Crab;
+            }
+
+            // Spawn multiple enemies
+            for (int i = 0; i < 4; i++)
+            {
+
+                if (currentMap.TryGetSpawnPosition(i, out var position))
+                {
+                    var newEnemy = enemyPalette.GetEnemyPrefab(enemyType);
+                    Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
+                }
+            }
+        }
+
+        // Playes wave incoming SFX, then delays the spawning of the enemies into the scene
+        public void SpawnEnemies()
+        {
+            if (bgAudio.combatMusic.isPlaying == false)
+            {
+                bgAudio.WaveAlertSound();
+            }
+
+            waveNumber++;
+
+            // Delay the spawning of enemies until the count-down is complete
+            Invoke("EnemyWaveSpawner", 4.25f);
+        }
+
+        private void Start()
+        {
+            // Play background music at game startup
+            bgAudio.playBackgroundMusic();
+
+            // Conditionals to check if enemies must be spawned given a certain time interval
+            if (!stopSpawning)
+            {
+                InvokeRepeating("SpawnEnemies", spawnTimer, spawnDelay);
+            }
+
+            if(stopSpawning)
+            {
+                CancelInvoke("SpawnEnemies");
+            }
+        }
+
         public T SpawnTemporaryObject<T>(T prefab, Vector3 origin) where T : MonoBehaviour
         {
             return Instantiate<T>(prefab, origin, Quaternion.identity, temporaryObjectsContainer);
@@ -241,6 +366,24 @@ namespace Scripts
 
         void Update()
         {
+            lifebar.SetLife(player.CurrentLife);
+
+            enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+            // Check if enemy wave has been cleared and play background music
+            if(enemies.Length == 0 && bgAudio.outOfCombatMusic.isPlaying == false)
+            {
+                float startingVol = bgAudio.combatMusic.volume;
+
+                //try to fade out combat music (needs ammending)
+                while (bgAudio.combatMusic.volume > 0)
+                {
+                    bgAudio.combatMusic.volume -= startingVol - Time.deltaTime / 5;
+                }
+
+                bgAudio.playBackgroundMusic();
+            }
+
             UpdateCurrentMap();
             
             if (Input.GetKeyUp(KeyCode.Alpha0))
@@ -250,6 +393,27 @@ namespace Scripts
                     SpawnEnemy(EnemyType.Crab, position, enemiesContainer);
                 }
             }
+
+            CheckGameState();
+
+            // Old method of spawning enemies
+            //if (Input.GetKeyUp(KeyCode.Alpha0))
+            //{
+            //    // Spawn multiple enemies
+            //    for (int i = 0; i < 4; i++)
+            //    {
+            //        if (currentMap.TryGetSpawnPosition(i, out var position))
+            //        {
+            //            var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Crab);
+            //            Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
+
+            //            // Add enemy to an array
+            //            //System.Array.Resize(ref enemies, +1);
+            //            //enemies[i] = newEnemy;
+            //            //print(enemies);
+            //        }
+            //    }
+            //}
         }
 
         public void DoSlowmoFX(float delay, float duration)

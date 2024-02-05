@@ -25,7 +25,7 @@ namespace Scripts.Map
             public EnemyType type;
             public float chance;
         }
-        
+
         private static int GlobalIdIndex = 0;
         
         public int Id { get; private set; }
@@ -36,14 +36,14 @@ namespace Scripts.Map
         [Header("Announcement Text")]
         [SerializeField] string announcementText;
 
-        [Header("Settings")] 
+        [Header("Settings")]
         [SerializeField] EnemySpawnInfo[] spawnInfos;
         [SerializeField] private bool preSpawnEnemies = false;
         [SerializeField] private bool keepSpawningEnemies = false;
         [SerializeField] private float spawnInterval = 2;
         [SerializeField] private int maxEnemiesAtOnce = 100;
         [SerializeField] private bool stopSpawnWhenDoorsOpen = true;
-        
+
         public MapXDoor[] adjacentMaps;
 
         private DoorController[] doors;
@@ -61,7 +61,7 @@ namespace Scripts.Map
         private bool isOpenDoorConditionComplete;
 
         private float lastSpawnTimeStamp;
-        
+
         public bool IsVisited { get; private set;  }
 
         public void Awake()
@@ -81,7 +81,7 @@ namespace Scripts.Map
                     door.Toggle(true);
                 }
             }
-            
+
             enemySpawnOrder = Enumerable.Range(0, spawnPoints.Length).ToList();
             enemySpawnOrder.Sort((a, b) => Random.value.CompareTo(Random.value));
 
@@ -129,7 +129,7 @@ namespace Scripts.Map
                 Debug.LogError("Can't spawn enemy of type None!");
                 return;
             }
-            
+
             var enemyGameObject = BigBadSingleton.Instance.GameplayManager.SpawnEnemy(enemyType, pos, null);
             var crab = enemyGameObject.GetComponent<CrabController>();
             if (crab)
@@ -172,11 +172,11 @@ namespace Scripts.Map
             {
                 return;
             }
-            
+
             if (hasOpenDoorsCondition && !isOpenDoorConditionComplete)
             {
                 BigBadSingleton.Instance.UIManager.RoomCompletionInfo.SetTimer(OpenDoorCondition.SecondsToGo);
-                
+
                 if (OpenDoorCondition.IsConditionComplete())
                 {
                     foreach (var adjacentMap in adjacentMaps)
@@ -215,9 +215,9 @@ namespace Scripts.Map
                 Debug.LogWarning("Trying to spawn enemy but there is no spawn point available!");
                 return;
             }
-            
+
             int currentEnemyPointIndex = enemySpawnOrder[enemySpawnIndex];
-            
+
             var point = spawnPoints[currentEnemyPointIndex];
             SpawnEnemy(ChooseRandomEnemyType(), point.transform.position);
 
@@ -262,11 +262,12 @@ namespace Scripts.Map
                 position = GetWorldPosAtCenterOfGridPos(gridPos);
                 return true;
             }
-            
+
             position = Vector3.zero;
             return false;
         }
 
+        // Spawn an enemy at a random spawn-point
         public bool TryGetRandomSpawnPosition(out Vector3 position)
         {
             if (spawnPoints.Length > 0)
@@ -274,6 +275,22 @@ namespace Scripts.Map
                 var randomPoint = spawnPoints[Mathf.RoundToInt(Random.value * (spawnPoints.Length - 1))]
                     .transform.position;
                 if (IsWorldPosInsideMap(randomPoint, out var gridPos))
+                {
+                    position = GetWorldPosAtCenterOfGridPos(gridPos);
+                    return true;
+                }
+            }
+
+            position = Vector3.zero;
+            return false;
+        }
+
+        // Spawn enemies at a specific spawn point (used in GameplayManager to spawn an enemy at each spawn-point at once)
+        public bool TryGetSpawnPosition(int spawnPoint, out Vector3 position)
+        {
+            if (spawnPoints.Length > 0)
+            {
+                if (IsWorldPosInsideMap(spawnPoints[spawnPoint].transform.position, out var gridPos))
                 {
                     position = GetWorldPosAtCenterOfGridPos(gridPos);
                     return true;
@@ -298,7 +315,7 @@ namespace Scripts.Map
         {
             return grid.GetCellCenterWorld(gridPos);
         }
-        
+
         public void ToggleAdjacentMaps(bool isActive)
         {
             foreach (var adjacentMap in adjacentMaps)
