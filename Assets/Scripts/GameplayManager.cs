@@ -83,29 +83,6 @@ namespace Scripts
             allMapsInScene = FindObjectsOfType<MapEntry>();
         }
 
-        void Start()
-        {
-            BigBadSingleton.Instance.UIManager.RoomCompletionInfo.ShowType(UIRoomCompletionInfo.InfoType.None);
-
-            Time.timeScale = 0;
-            fadeInComplete = false;
-
-            string roomText;
-            if (currentMap.TryGetAnnouncementText(out roomText))
-            {
-                BigBadSingleton.Instance.UIManager.SetAnnounceText(roomText);
-            }
-
-            BigBadSingleton.Instance.UIManager.FadeScreen.DoFadeIn(1f, 0.4f, () =>
-            {
-                BigBadSingleton.Instance.UIManager.Announce(roomText, 1f, () =>
-                {
-                    currentMap.Visit();
-                });
-                fadeInComplete = true;
-            });
-        }
-
         public void LoadPlayer()
         {
             var playerController = FindObjectsOfType<PlayerController>().FirstOrDefault();
@@ -296,14 +273,7 @@ namespace Scripts
             }
 
             // Determine enemy type based on wave number
-            if (waveNumber % 2 == 0)
-            {
-                enemyType = EnemyType.Thing;
-            }
-            else
-            {
-                enemyType = EnemyType.Crab;
-            }
+            enemyType = EnemyType.Crab;
 
             // Spawn multiple enemies
             for (int i = 0; i < 4; i++)
@@ -346,6 +316,26 @@ namespace Scripts
             {
                 CancelInvoke("SpawnEnemies");
             }
+
+            BigBadSingleton.Instance.UIManager.RoomCompletionInfo.ShowType(UIRoomCompletionInfo.InfoType.None);
+
+            Time.timeScale = 0;
+            fadeInComplete = false;
+
+            string roomText;
+            if (currentMap.TryGetAnnouncementText(out roomText))
+            {
+                BigBadSingleton.Instance.UIManager.SetAnnounceText(roomText);
+            }
+
+            BigBadSingleton.Instance.UIManager.FadeScreen.DoFadeIn(1f, 0.4f, () =>
+            {
+                BigBadSingleton.Instance.UIManager.Announce(roomText, 1f, () =>
+                {
+                    currentMap.Visit();
+                });
+                fadeInComplete = true;
+            });
         }
 
         public T SpawnTemporaryObject<T>(T prefab, Vector3 origin) where T : MonoBehaviour
