@@ -103,6 +103,7 @@ namespace Scripts.Player
                     if (canInteract.CompareTag("PickUp"))
                     {
                         holdingItem = canInteract;
+                        holdingItem.GetComponent<BoxCollider2D>().enabled = false;
                         canInteract = null;
                     }
                     else if (canInteract.CompareTag("Lever"))
@@ -113,6 +114,7 @@ namespace Scripts.Player
                 else if (holdingItem != null)
                 {
                     holdingItem.transform.position = BigBadSingleton.Instance.GameplayManager.getGridCenterInWorldPos(transform.position);
+                    holdingItem.GetComponent<BoxCollider2D>().enabled = true;
                     holdingItem = null;
                 }
             }
