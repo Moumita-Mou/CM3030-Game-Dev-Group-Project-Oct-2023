@@ -3285,6 +3285,8 @@ MonoBehaviour:
   barrierPrefab: {fileID: 6245866311674527326, guid: 8bc4cf070bb2b48478ffe94703724450,
     type: 3}
   barrierPos: {x: -1.52, y: 1.2, z: 0}
+  barriedSprite: {fileID: 21300000, guid: 594636b57ceff694182ae6870511fcdf, type: 3}
+  spriteOffset: {x: 0, y: 0, z: 0}
 --- !u!4 &1771409620
 Transform:
   m_ObjectHideFlags: 0
