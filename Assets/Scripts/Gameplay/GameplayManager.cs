@@ -273,10 +273,17 @@ namespace Scripts
             }
 
             // Determine enemy type based on wave number
-            enemyType = EnemyType.Crab;
+            if (waveNumber % 2 == 0)
+            {
+                enemyType = EnemyType.Ghost;
+            }
+            else
+            {
+                enemyType = EnemyType.Crab;
+            }
 
             // Spawn multiple enemies
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < currentMap.spawnPoints.Length; i++)
             {
 
                 if (currentMap.TryGetSpawnPosition(i, out var position))

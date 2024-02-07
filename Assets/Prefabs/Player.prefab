@@ -390,7 +390,7 @@ MonoBehaviour:
   rigidbody2D: {fileID: 8428111411363024986}
   moveSpeed: 0.75
   pickupOffset: 0.15
-  totalLife: 3
+  totalLife: 6
   hitImpulseForce: 10
   hitMask:
     serializedVersion: 2
