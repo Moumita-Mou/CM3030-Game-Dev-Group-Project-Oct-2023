@@ -332,8 +332,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 541720923b1fec04ba7f3285858ef917, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   playerHitSFX: {fileID: 7723695596933278712}
   swordSwingSFX: {fileID: 407394342162147813}
   gameOverSFX: {fileID: 3750476502256488855}
@@ -388,7 +388,8 @@ MonoBehaviour:
   visual: {fileID: 8428111410660412728}
   collider: {fileID: 8428111412201522298}
   rigidbody2D: {fileID: 8428111411363024986}
-  moveSpeed: 0.5
+  moveSpeed: 0.75
+  pickupOffset: 0.15
   totalLife: 3
   hitImpulseForce: 10
   hitMask:
@@ -418,7 +419,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument:
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5334686087327461687}
@@ -429,7 +430,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument:
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   OnDeath:
@@ -454,7 +455,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument:
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!50 &8428111411363024986
@@ -535,8 +536,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fad1c5ab1ad4852b3a368971b6fbb3a, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
   duration: 0.1
 --- !u!1001 &2794389372632534316
@@ -564,7 +565,7 @@ PrefabInstance:
     - target: {fileID: 834437285030478352, guid: 30cedfe0d92f67842b4d4c59a7605df9,
         type: 3}
       propertyPath: PlaySound.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value:
+      value: 
       objectReference: {fileID: 5334686087327461687}
     - target: {fileID: 834437285030478352, guid: 30cedfe0d92f67842b4d4c59a7605df9,
         type: 3}
@@ -580,6 +581,11 @@ PrefabInstance:
         type: 3}
       propertyPath: PlaySound.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4431077588724963407, guid: 30cedfe0d92f67842b4d4c59a7605df9,
+        type: 3}
+      propertyPath: collisionRect.width
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4431077588724963407, guid: 30cedfe0d92f67842b4d4c59a7605df9,
         type: 3}

@@ -70,7 +70,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1378833261
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: -66793741381211598, guid: 28bff8da23adbcd4681919e7980b520c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -172,7 +172,7 @@ MonoBehaviour:
   damageFX: {fileID: 1253387383128720860}
   collisionSensor: {fileID: 1253387383494243783}
   bloodParticles: {fileID: 1253387383570150808}
-  lifePoints: 1
+  lifePoints: 2
   moveSpeed: 0.5
   attackSpeed: 1.5
   attackWaitTime: 5
