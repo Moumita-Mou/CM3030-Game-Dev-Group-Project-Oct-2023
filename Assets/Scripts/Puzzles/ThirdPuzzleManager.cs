@@ -7,6 +7,8 @@ public class ThirdPuzzleManager : MonoBehaviour
     [SerializeField] List<ClickerPlate> clickerPlates;
     [SerializeField] GameObject barrierPrefab;
     [SerializeField] Vector3 barrierPos;
+    [SerializeField] Sprite barriedSprite;
+    [SerializeField] Vector3 spriteOffset;
 
     private GameObject barrier;
     private int currentPlateIndex = 0;
@@ -38,6 +40,13 @@ public class ThirdPuzzleManager : MonoBehaviour
     private void spawnBarrier()
     {
         barrier = Instantiate(barrierPrefab, barrierPos, Quaternion.identity);
+
+        GameObject barrierVis = new GameObject("BarrierVisual");
+        SpriteRenderer spriteRenderer = barrierVis.AddComponent<SpriteRenderer>();
+        spriteRenderer.sprite = barriedSprite;
+        barrierVis.transform.position = barrier.transform.position + spriteOffset;
+
+        barrierVis.transform.parent = barrier.transform;
     }
 
     private void despawnBarrier()
