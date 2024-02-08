@@ -50,9 +50,9 @@ namespace Scripts
         //private List<GameObject> enemies;
         private GameObject[] enemies;
 
-        // Enemy type select
-        [SerializeField] private int waveNumber = 0;
-        [SerializeField] private EnemyType enemyType;
+        // Wave and enemy type variables
+        private int waveNumber = 0;
+        private EnemyType enemyType;
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private PlayerController player;
@@ -250,6 +250,11 @@ namespace Scripts
             Instantiate(fxPalette.GetRandomBigExplosion(), worldPos, Quaternion.identity, fxContainer);
         }
 
+        public void SpawnBomberExplosionAt(Vector3 worldPos)
+        {
+            Instantiate(fxPalette.GetBomberExplosion(), worldPos, Quaternion.identity, fxContainer);
+        }
+
         // Checks if the current 'state of the game' (is the player dead, is the game paused, is the player in combat, etc.)
         // This is to trigger events which control background music play and possibly UI changes
         void CheckGameState()
@@ -272,24 +277,78 @@ namespace Scripts
                 bgAudio.playCombatMusic();
             }
 
-            // Determine enemy type based on wave number
-            if (waveNumber % 2 == 0)
-            {
-                enemyType = EnemyType.Ghost;
-            }
-            else
-            {
-                enemyType = EnemyType.Crab;
-            }
-
             // Spawn multiple enemies
             for (int i = 0; i < currentMap.spawnPoints.Length; i++)
             {
-
                 if (currentMap.TryGetSpawnPosition(i, out var position))
                 {
-                    var newEnemy = enemyPalette.GetEnemyPrefab(enemyType);
-                    Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
+                    // 1st Wave
+                    if (waveNumber == 1)
+                    {
+                        var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Crab);
+                        Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
+
+                        if (i > 3)
+                        {
+                            break;
+                        }
+                    }
+
+
+                    // 2nd Wave
+                    else if (waveNumber == 2)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Ghost);
+                            Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
+                        }
+                        else
+                        {
+                            var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Bomber);
+                            Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
+                        }
+
+                        if (i > 3)
+                        {
+                            break;
+                        }
+                    }
+
+                    // 3rd Wave
+                    else if (waveNumber == 3)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Ghost);
+                            Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
+                        }
+                        else
+                        {
+                            var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Crab);
+                            Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
+                        }
+
+                        if (i > 5)
+                        {
+                            break;
+                        }
+                    }
+
+                    // All other waves
+                    else
+                    {
+                        if (i % 2 == 0)
+                        {
+                            var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Ghost);
+                            Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
+                        }
+                        else
+                        {
+                            var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Crab);
+                            Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
+                        }
+                    }
                 }
             }
         }
@@ -303,6 +362,7 @@ namespace Scripts
             }
 
             waveNumber++;
+            print(waveNumber);
 
             // Delay the spawning of enemies until the count-down is complete
             Invoke("EnemyWaveSpawner", 4.25f);
@@ -345,6 +405,7 @@ namespace Scripts
             });
         }
 
+        // Felipe's enemy spawn code
         public T SpawnTemporaryObject<T>(T prefab, Vector3 origin) where T : MonoBehaviour
         {
             return Instantiate<T>(prefab, origin, Quaternion.identity, temporaryObjectsContainer);
@@ -383,34 +444,15 @@ namespace Scripts
 
             UpdateCurrentMap();
             
-            if (Input.GetKeyUp(KeyCode.Alpha0))
-            {
-                if (currentMap.TryGetRandomSpawnPosition(out var position))
-                {
-                    SpawnEnemy(EnemyType.Crab, position, enemiesContainer);
-                }
-            }
-
-            CheckGameState();
-
-            // Old method of spawning enemies
             //if (Input.GetKeyUp(KeyCode.Alpha0))
             //{
-            //    // Spawn multiple enemies
-            //    for (int i = 0; i < 4; i++)
+            //    if (currentMap.TryGetRandomSpawnPosition(out var position))
             //    {
-            //        if (currentMap.TryGetSpawnPosition(i, out var position))
-            //        {
-            //            var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Crab);
-            //            Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
-
-            //            // Add enemy to an array
-            //            //System.Array.Resize(ref enemies, +1);
-            //            //enemies[i] = newEnemy;
-            //            //print(enemies);
-            //        }
+            //        SpawnEnemy(EnemyType.Crab, position, enemiesContainer);
             //    }
             //}
+
+            CheckGameState();
         }
 
         public void DoSlowmoFX(float delay, float duration)

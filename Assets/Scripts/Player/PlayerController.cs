@@ -36,6 +36,8 @@ namespace Scripts.Player
 
         public int CurrentLife { get; private set; }
 
+        private EnemyType enemyType;
+
         public void Init()
         {
             CurrentLife = TotalLife;
@@ -47,6 +49,7 @@ namespace Scripts.Player
             {
                 BigBadSingleton.Instance.GameplayManager.DoSlowmoFX(0.1f, 0.0f);
                 rigidbody2D.AddForce(col.relativeVelocity * hitImpulseForce, ForceMode2D.Impulse);
+
                 CurrentLife -= 1;
                 
                 BigBadSingleton.Instance.GameplayManager.DoCameraShake();

@@ -8,7 +8,8 @@ namespace Scripts
     {
         None = 0,
         Crab = 1,
-        Ghost = 2
+        Ghost = 2,
+        Bomber = 3
     }
 
     [Serializable]
