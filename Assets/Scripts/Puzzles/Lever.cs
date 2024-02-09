@@ -16,6 +16,8 @@ public class Lever : MonoBehaviour
             manager.changeState();
 
         float angle = 45 * ((state == 0) ? 1 : -1);
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        // Lever should have a child for visual at 0 index
+        transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angle);
     }
 }
