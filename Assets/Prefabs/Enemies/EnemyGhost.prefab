@@ -74,6 +74,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7859348939625000674}
+        m_MethodName: EnemyTakesDamageSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4257593608980322462
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,7 +155,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1378833261
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 4
   m_Sprite: {fileID: -5165145118684638866, guid: 172e7e9f163733a4fb00bf4c4c0ae78e,
     type: 3}
@@ -205,7 +216,7 @@ GameObject:
   - component: {fileID: 5869399978589933951}
   m_Layer: 12
   m_Name: EnemyGhost
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -223,6 +234,7 @@ Transform:
   m_Children:
   - {fileID: 4257593608980322531}
   - {fileID: 4257593608334478696}
+  - {fileID: 2660945970100825816}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -246,7 +258,7 @@ MonoBehaviour:
   collisionSensor: {fileID: 5539581267754209813}
   projectile: {fileID: -856989688449345441, guid: 63092ad8b7cd0b3438aa79f006888f68,
     type: 3}
-  lifePoints: 3
+  lifePoints: 1
   moveSpeed: 40
   timeBetweenFires: 2
   fireWaitTime: 2
@@ -261,6 +273,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5869399978589933951}
         m_MethodName: SetToBeDestroyed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7859348939625000674}
+        m_MethodName: EnemyDiesSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -318,3 +341,90 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1001 &8199361125226842742
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4257593609088790949}
+    m_Modifications:
+    - target: {fileID: 6135151474152760494, guid: 3703c47c543b5724fa42e6aa387234f3,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135151474152760494, guid: 3703c47c543b5724fa42e6aa387234f3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135151474152760494, guid: 3703c47c543b5724fa42e6aa387234f3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135151474152760494, guid: 3703c47c543b5724fa42e6aa387234f3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135151474152760494, guid: 3703c47c543b5724fa42e6aa387234f3,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135151474152760494, guid: 3703c47c543b5724fa42e6aa387234f3,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135151474152760494, guid: 3703c47c543b5724fa42e6aa387234f3,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135151474152760494, guid: 3703c47c543b5724fa42e6aa387234f3,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135151474152760494, guid: 3703c47c543b5724fa42e6aa387234f3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135151474152760494, guid: 3703c47c543b5724fa42e6aa387234f3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135151474152760494, guid: 3703c47c543b5724fa42e6aa387234f3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8824392871390581991, guid: 3703c47c543b5724fa42e6aa387234f3,
+        type: 3}
+      propertyPath: m_Name
+      value: EnemySounds
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3703c47c543b5724fa42e6aa387234f3, type: 3}
+--- !u!4 &2660945970100825816 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6135151474152760494, guid: 3703c47c543b5724fa42e6aa387234f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8199361125226842742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7859348939625000674 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2079536818809463956, guid: 3703c47c543b5724fa42e6aa387234f3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8199361125226842742}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7361a32f0a7d6c4b835b9974407e2bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
