@@ -2546,8 +2546,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PauseMenuCanvas: {fileID: 2090514883}
-  OptionsMenuCanvas: {fileID: 873407402}
-  GameOverCanvas: {fileID: 1916967069}
+  OptionsMenuCanvas: {fileID: 0}
+  GameOverCanvas: {fileID: 0}
 --- !u!1 &1090394191
 GameObject:
   m_ObjectHideFlags: 0
