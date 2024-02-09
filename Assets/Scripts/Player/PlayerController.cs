@@ -21,7 +21,7 @@ namespace Scripts.Player
 
         [SerializeField] private int mainWeaponMouseButton = 0;
         [SerializeField] private int secondaryWeaponMouseButton = 1;
-        
+
         [Header("Events")]
         [SerializeField] UnityEvent OnHit;
         [SerializeField] UnityEvent OnDeath;
@@ -31,6 +31,8 @@ namespace Scripts.Player
         private bool isWalking;
         private GameObject holdingItem = null;
         private GameObject canInteract = null;
+
+        private bool hasKey = false; // Tracks if the player has picked up a key
 
         public int TotalLife => totalLife;
 
@@ -51,14 +53,14 @@ namespace Scripts.Player
                 rigidbody2D.AddForce(col.relativeVelocity * hitImpulseForce, ForceMode2D.Impulse);
 
                 CurrentLife -= 1;
-                
+
                 BigBadSingleton.Instance.GameplayManager.DoCameraShake();
-                
+
                 OnHit?.Invoke();
             }
 
             // Play game over sound when player dies
-            if (CurrentLife == 0) 
+            if (CurrentLife == 0)
             {
                 OnDeath?.Invoke();
                 Time.timeScale = 0.0f;
@@ -73,7 +75,7 @@ namespace Scripts.Player
             Vector2 walkForce = new Vector2(inputX, inputY).normalized * moveSpeed;
 
             isWalking = walkForce.sqrMagnitude > 0;
-            
+
             rigidbody2D.AddRelativeForce(walkForce, ForceMode2D.Impulse);
         }
 
@@ -82,16 +84,16 @@ namespace Scripts.Player
             float deltaTime = Time.deltaTime;
 
             //BigBadSingleton.Instance.GameplayManager.Debug_FocusWorldPositionInGrid(transform.position, false);
-            
+
             visual.UpdateWalking(isWalking, rigidbody2D.velocity.magnitude);
 
             var currentMousePos = Input.mousePosition;
             var playerPosTransformed = Camera.main.WorldToScreenPoint(visual.transform.position);
             var dir = (currentMousePos - playerPosTransformed).normalized;
             visual.UpdateOrientation(dir);
-            
-            visual.UpdateHands(isWalking, 
-                Input.GetMouseButton(secondaryWeaponMouseButton), 
+
+            visual.UpdateHands(isWalking,
+                Input.GetMouseButton(secondaryWeaponMouseButton),
                 Input.GetMouseButton(mainWeaponMouseButton));
 
             applyInteractionLogic();
@@ -126,13 +128,37 @@ namespace Scripts.Player
             }
         }
 
+        // Updated OnTriggerEnter2D to account for key pickup 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (collider.CompareTag("PickUp") || collider.CompareTag("Lever"))
+            if (collider.CompareTag("PickUp") || collider.CompareTag("Lever") || collider.CompareTag("Key"))
             {
                 canInteract = collider.gameObject;
-            }
 
+                // Key pickup logic
+                if (collider.CompareTag("Key"))
+                {
+                    hasKey = true; // Player has picked up the key
+                    Destroy(collider.gameObject); // Remove the key from the scene
+                }
+            }
+        }
+
+        // Logic to use key on a door 
+        private void OnTriggerStay2D(Collider2D collider)
+        {
+            if (collider.CompareTag("Door") && hasKey && Input.GetKeyDown(KeyCode.E))
+            {
+                OpenDoor(collider.gameObject); // Calls open door method
+                hasKey = false; // Consume the key upon use
+            }
+        }
+
+        // OpenDoor method
+        private void OpenDoor(GameObject door)
+        {
+            // Disables the door collider
+            door.GetComponent<Collider2D>().enabled = false;
         }
 
         private void OnTriggerExit2D(Collider2D collider)
