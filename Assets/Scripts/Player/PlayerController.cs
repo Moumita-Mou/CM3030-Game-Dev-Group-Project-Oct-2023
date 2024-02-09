@@ -32,6 +32,8 @@ namespace Scripts.Player
         private GameObject holdingItem = null;
         private GameObject canInteract = null;
 
+        private bool hasKey = false; // Tracks if the player has picked up a key
+
         public int TotalLife => totalLife;
 
         public int CurrentLife { get; private set; }
@@ -125,13 +127,37 @@ namespace Scripts.Player
             }
         }
 
+        // Updated OnTriggerEnter2D to account for key pickup 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (collider.CompareTag("PickUp") || collider.CompareTag("Lever"))
+            if (collider.CompareTag("PickUp") || collider.CompareTag("Lever") || collider.CompareTag("Key"))
             {
                 canInteract = collider.gameObject;
-            }
 
+                // Key pickup logic
+                if (collider.CompareTag("Key"))
+                {
+                    hasKey = true; // Player has picked up the key
+                    Destroy(collider.gameObject); // Remove the key from the scene
+                }
+            }
+        }
+
+        // Logic to use key on a door 
+        private void OnTriggerStay2D(Collider2D collider)
+        {
+            if (collider.CompareTag("Door") && hasKey && Input.GetKeyDown(KeyCode.E))
+            {
+                OpenDoor(collider.gameObject); // Calls open door method
+                hasKey = false; // Consume the key upon use
+            }
+        }
+
+        // OpenDoor method
+        private void OpenDoor(GameObject door)
+        {
+            // Disables the door collider
+            door.GetComponent<Collider2D>().enabled = false;
         }
 
         private void OnTriggerExit2D(Collider2D collider)
