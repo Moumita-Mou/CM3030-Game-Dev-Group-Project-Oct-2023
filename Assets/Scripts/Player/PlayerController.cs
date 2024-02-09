@@ -32,7 +32,7 @@ namespace Scripts.Player
         private GameObject holdingItem = null;
         private GameObject canInteract = null;
 
-        private bool hasKey = false; // Tracks if the player has picked up a key
+        private int keysCollected = 0;
 
         public int TotalLife => totalLife;
 
@@ -130,29 +130,30 @@ namespace Scripts.Player
             }
         }
 
-        // Updated OnTriggerEnter2D to account for key pickup 
+
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (collider.CompareTag("PickUp") || collider.CompareTag("Lever") || collider.CompareTag("Key"))
+            if (collider.CompareTag("PickUp") || collider.CompareTag("Lever"))
             {
                 canInteract = collider.gameObject;
-
-                // Key pickup logic
-                if (collider.CompareTag("Key"))
-                {
-                    hasKey = true; // Player has picked up the key
-                    Destroy(collider.gameObject); // Remove the key from the scene
-                }
             }
         }
 
         // Logic to use key on a door 
         private void OnTriggerStay2D(Collider2D collider)
         {
-            if (collider.CompareTag("Door") && hasKey && Input.GetKeyDown(KeyCode.E))
+            if (collider.CompareTag("Chest") && Input.GetKeyDown(KeyCode.E))
             {
-                OpenDoor(collider.gameObject); // Calls open door method
-                hasKey = false; // Consume the key upon use
+                if (collider.gameObject.GetComponent<ChestManager>() != null)
+                {
+                    keysCollected += collider.gameObject.GetComponent<ChestManager>().openChest();
+                }
+            } else if (collider.CompareTag("Door") && Input.GetKeyDown(KeyCode.E) && keysCollected == 3)
+            {
+                if (collider.gameObject.GetComponent<BossDoorManager>() != null)
+                {
+                    collider.gameObject.GetComponent<BossDoorManager>().openDoor();
+                }
             }
         }
 
