@@ -47,7 +47,7 @@ namespace Scripts.Map
         public MapXDoor[] adjacentMaps;
 
         private DoorController[] doors;
-        private EnemySpawnPoint[] spawnPoints;
+        public EnemySpawnPoint[] spawnPoints;
         private PlayerSpawnPoint playerSpawnPoint;
         private GameObject enemiesContainer;
 

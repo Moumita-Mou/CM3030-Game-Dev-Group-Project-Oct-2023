@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 545e7ed398b898c4b84618a8b53070ca
   - enabled: 1
-    path: Assets/Scenes/TestGameplay.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/GameplayTest_Arena_wEnemies.unity
+    guid: 11717564c6cf7724d86cdb0f496972b5
   m_configObjects: {}

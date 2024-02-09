@@ -5,12 +5,10 @@ using UnityEngine;
 public class EnemySounds : MonoBehaviour
 {
     [Header("Enemy Damage SFX")]
-    [SerializeField]
-    AudioSource dealDamageSFX;
+    [SerializeField] AudioSource dealDamageSFX;
 
     [Header("Enemy Dies SFX")]
-    [SerializeField]
-    AudioSource enemyDeadSFX;
+    [SerializeField] AudioSource enemyDeadSFX;
 
     public void EnemyTakesDamageSound()
     {
