@@ -5,12 +5,16 @@ using UnityEngine;
 public class EnemySounds : MonoBehaviour
 {
     [Header("Enemy Damage SFX")]
-    [SerializeField]
-    AudioSource dealDamageSFX;
+    [SerializeField] AudioSource dealDamageSFX;
 
     [Header("Enemy Dies SFX")]
-    [SerializeField]
-    AudioSource enemyDeadSFX;
+    [SerializeField] AudioSource enemyDeadSFX;
+
+    //[Header("Bomber Explosion SFX")]
+    //[SerializeField] AudioSource bomberExplodeSFX;
+
+    //[Header("Enemy Explosion SFX")]
+    //[SerializeField] AudioSource enemyExplodeSFX;
 
     public void EnemyTakesDamageSound()
     {
@@ -23,4 +27,15 @@ public class EnemySounds : MonoBehaviour
         //Debug.Log("Sound triggered");
         enemyDeadSFX.Play();
     }
+
+    //public void BomberExpolodes()
+    //{
+    //    print("playing bomber sound");
+    //    bomberExplodeSFX.Play();
+    //}
+
+    //public void EnemyExpolodes()
+    //{
+    //    enemyExplodeSFX.Play();
+    //}
 }

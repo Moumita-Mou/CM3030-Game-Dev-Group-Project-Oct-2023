@@ -143,6 +143,9 @@ TextureImporter:
   - first:
       213: -5558743671028849693
     second: bomber_explosion_46
+  - first:
+      213: -4536979393212673380
+    second: bomber_explosion_47
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1222,6 +1225,27 @@ TextureImporter:
       bones: []
       spriteID: 3e3efda25106bd2b0800000000000000
       internalID: -5558743671028849693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bomber_explosion_47
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 37
+        width: 42
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c929a42a7496901c0800000000000000
+      internalID: -4536979393212673380
       vertices: []
       indices: 
       edges: []
