@@ -21,7 +21,7 @@ namespace Scripts.Player
 
         [SerializeField] private int mainWeaponMouseButton = 0;
         [SerializeField] private int secondaryWeaponMouseButton = 1;
-        
+
         [Header("Events")]
         [SerializeField] UnityEvent OnHit;
         [SerializeField] UnityEvent OnDeath;
@@ -48,14 +48,14 @@ namespace Scripts.Player
                 BigBadSingleton.Instance.GameplayManager.DoSlowmoFX(0.1f, 0.0f);
                 rigidbody2D.AddForce(col.relativeVelocity * hitImpulseForce, ForceMode2D.Impulse);
                 CurrentLife -= 1;
-                
+
                 BigBadSingleton.Instance.GameplayManager.DoCameraShake();
-                
+
                 OnHit?.Invoke();
             }
 
             // Play game over sound when player dies
-            if (CurrentLife == 0) 
+            if (CurrentLife == 0)
             {
                 OnDeath?.Invoke();
                 Time.timeScale = 0.0f;
@@ -70,7 +70,7 @@ namespace Scripts.Player
             Vector2 walkForce = new Vector2(inputX, inputY).normalized * moveSpeed;
 
             isWalking = walkForce.sqrMagnitude > 0;
-            
+
             rigidbody2D.AddRelativeForce(walkForce, ForceMode2D.Impulse);
         }
 
@@ -79,16 +79,16 @@ namespace Scripts.Player
             float deltaTime = Time.deltaTime;
 
             //BigBadSingleton.Instance.GameplayManager.Debug_FocusWorldPositionInGrid(transform.position, false);
-            
+
             visual.UpdateWalking(isWalking, rigidbody2D.velocity.magnitude);
 
             var currentMousePos = Input.mousePosition;
             var playerPosTransformed = Camera.main.WorldToScreenPoint(visual.transform.position);
             var dir = (currentMousePos - playerPosTransformed).normalized;
             visual.UpdateOrientation(dir);
-            
-            visual.UpdateHands(isWalking, 
-                Input.GetMouseButton(secondaryWeaponMouseButton), 
+
+            visual.UpdateHands(isWalking,
+                Input.GetMouseButton(secondaryWeaponMouseButton),
                 Input.GetMouseButton(mainWeaponMouseButton));
 
             applyInteractionLogic();
