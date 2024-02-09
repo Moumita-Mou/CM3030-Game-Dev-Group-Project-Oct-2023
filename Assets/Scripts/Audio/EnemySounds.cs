@@ -10,12 +10,6 @@ public class EnemySounds : MonoBehaviour
     [Header("Enemy Dies SFX")]
     [SerializeField] AudioSource enemyDeadSFX;
 
-    //[Header("Bomber Explosion SFX")]
-    //[SerializeField] AudioSource bomberExplodeSFX;
-
-    //[Header("Enemy Explosion SFX")]
-    //[SerializeField] AudioSource enemyExplodeSFX;
-
     public void EnemyTakesDamageSound()
     {
         //Debug.Log("Sound triggered");
@@ -27,15 +21,4 @@ public class EnemySounds : MonoBehaviour
         //Debug.Log("Sound triggered");
         enemyDeadSFX.Play();
     }
-
-    //public void BomberExpolodes()
-    //{
-    //    print("playing bomber sound");
-    //    bomberExplodeSFX.Play();
-    //}
-
-    //public void EnemyExpolodes()
-    //{
-    //    enemyExplodeSFX.Play();
-    //}
 }

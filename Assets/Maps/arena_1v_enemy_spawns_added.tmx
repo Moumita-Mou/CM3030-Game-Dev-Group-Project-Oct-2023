@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="61" height="72" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="5">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="61" height="72" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="11">
  <tileset firstgid="1" source="mapsSheet.tsx"/>
  <layer id="1" name="BaseLayer" width="61" height="72">
   <data encoding="csv">
@@ -78,10 +78,16 @@
 </data>
  </layer>
  <objectgroup id="4" name="EnemySpawners">
-  <object id="1" type="EnemySpawnPoint" x="329" y="681"/>
-  <object id="2" type="EnemySpawnPoint" x="650" y="682"/>
-  <object id="3" type="EnemySpawnPoint" x="414" y="836"/>
-  <object id="4" type="EnemySpawnPoint" x="560" y="836"/>
+  <object id="1" type="EnemySpawnPoint" x="318" y="681"/>
+  <object id="2" type="EnemySpawnPoint" x="667" y="680"/>
+  <object id="3" type="EnemySpawnPoint" x="379" y="844"/>
+  <object id="4" type="EnemySpawnPoint" x="603" y="844"/>
+  <object id="5" type="EnemySpawnPoint" x="380" y="509"/>
+  <object id="6" type="EnemySpawnPoint" x="597" y="506"/>
+  <object id="7" type="EnemySpawnPoint" x="431" y="639"/>
+  <object id="8" type="EnemySpawnPoint" x="543" y="640"/>
+  <object id="9" type="EnemySpawnPoint" x="430" y="737"/>
+  <object id="10" type="EnemySpawnPoint" x="547" y="737"/>
  </objectgroup>
  <layer id="3" name="AbovePlayer" width="61" height="72">
   <properties>

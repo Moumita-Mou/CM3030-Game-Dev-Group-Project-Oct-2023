@@ -288,7 +288,7 @@ namespace Scripts
                         var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Crab);
                         Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
 
-                        if (i > 3)
+                        if (i > 2)
                         {
                             break;
                         }
@@ -298,18 +298,18 @@ namespace Scripts
                     // 2nd Wave
                     else if (waveNumber == 2)
                     {
-                        if (i % 2 == 0)
-                        {
-                            var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Ghost);
-                            Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
-                        }
-                        else
+                        if (i == 0 || i == 1 || i == 4)
                         {
                             var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Bomber);
                             Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
                         }
+                        else
+                        {
+                            var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Ghost);
+                            Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
+                        }
 
-                        if (i > 3)
+                        if (i > 4)
                         {
                             break;
                         }
@@ -329,7 +329,7 @@ namespace Scripts
                             Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
                         }
 
-                        if (i > 5)
+                        if (i > 6)
                         {
                             break;
                         }
@@ -341,6 +341,11 @@ namespace Scripts
                         if (i % 2 == 0)
                         {
                             var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Ghost);
+                            Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
+                        }
+                        else if (i % 3 == 0)
+                        {
+                            var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Bomber);
                             Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
                         }
                         else
