@@ -194,7 +194,7 @@ MonoBehaviour:
   moveSpeed: 2
   attackSpeed: 1
   attackWaitTime: 8
-  attackRange: 0.55
+  attackRange: 0.6
   OnDie:
     m_PersistentCalls:
       m_Calls:

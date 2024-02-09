@@ -309,7 +309,7 @@ namespace Scripts
                             Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
                         }
 
-                        if (i > 4)
+                        if (i > 2)
                         {
                             break;
                         }
@@ -321,6 +321,25 @@ namespace Scripts
                         if (i % 2 == 0)
                         {
                             var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Ghost);
+                            Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
+                        }
+                        else
+                        {
+                            var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Crab);
+                            Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
+                        }
+
+                        if (i > 4)
+                        {
+                            break;
+                        }
+                    }
+
+                    else if (waveNumber == 4)
+                    {
+                        if (i % 2 == 0)
+                        {
+                            var newEnemy = enemyPalette.GetEnemyPrefab(EnemyType.Bomber);
                             Instantiate(newEnemy, position, Quaternion.identity, enemiesContainer);
                         }
                         else
