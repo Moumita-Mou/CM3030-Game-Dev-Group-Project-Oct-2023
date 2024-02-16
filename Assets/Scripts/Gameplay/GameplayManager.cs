@@ -255,6 +255,11 @@ namespace Scripts
             Instantiate(fxPalette.GetBomberExplosion(), worldPos, Quaternion.identity, fxContainer);
         }
 
+        public void SpawnBossExplosionAt(Vector3 worldPos)
+        {
+            Instantiate(fxPalette.GetBossExplosion(), worldPos, Quaternion.identity, fxContainer);
+        }
+
         // Checks if the current 'state of the game' (is the player dead, is the game paused, is the player in combat, etc.)
         // This is to trigger events which control background music play and possibly UI changes
         void CheckGameState()
@@ -467,14 +472,6 @@ namespace Scripts
             }
 
             UpdateCurrentMap();
-            
-            //if (Input.GetKeyUp(KeyCode.Alpha0))
-            //{
-            //    if (currentMap.TryGetRandomSpawnPosition(out var position))
-            //    {
-            //        SpawnEnemy(EnemyType.Crab, position, enemiesContainer);
-            //    }
-            //}
 
             CheckGameState();
         }

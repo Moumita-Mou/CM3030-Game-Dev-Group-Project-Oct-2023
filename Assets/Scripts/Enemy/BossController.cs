@@ -11,7 +11,7 @@ using UnityEngine.Events;
 
 public class BossController : MonoBehaviour
 {
-    private enum CrabState
+    private enum BossState
     {
         Spawning = 0,
         Active = 1,
@@ -40,7 +40,7 @@ public class BossController : MonoBehaviour
     [SerializeField] UnityEvent OnDie;
 
     private IPlayerFollower playerFollower;
-    private CrabState currentState;
+    private BossState currentState;
     
     private float attackTimeStamp = 0;
     private float currentScale = 1;
@@ -59,8 +59,11 @@ public class BossController : MonoBehaviour
 
     void Start()
     {
-        currentState = CrabState.Active;
+        currentState = BossState.Active;
         attackTimeStamp = 0;
+
+        visualAnimator.SetBool("boss-enter-animation", true);
+        Invoke("BossEnterStop", 3.2f);
     }
 
     void Update()
@@ -73,7 +76,7 @@ public class BossController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (currentState == CrabState.Corpse)
+        if (currentState == BossState.Corpse)
         {
             return;
         }
@@ -87,7 +90,14 @@ public class BossController : MonoBehaviour
         else
         {
             MoveTowardsPlayer(dt, moveDir);
+            //print(moveDir);
         }
+    }
+
+    private void BossEnterStop()
+    {
+        visualAnimator.SetBool("boss-enter-animation", false);
+        print("Boss now walks");
     }
 
     void Attack(float dt, Vector2 moveDir)
@@ -101,14 +111,26 @@ public class BossController : MonoBehaviour
 
     void MoveTowardsPlayer(float dt, Vector2 moveDir)
     {
+        SpriteRenderer spriteRenderer = visualParent.GetComponent<SpriteRenderer>();
+
+        if (moveDir.x < rigidbody2D.position.x)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else
+        {
+            spriteRenderer.flipX = false;    
+        }
+
         rigidbody2D.AddForce(moveDir * (moveSpeed * dt));
+        
     }
 
     public void OnHit(WeaponBase weapon)
     {
         Vector2 collisionDir = transform.position - weapon.transform.position;
         
-        if (currentState == CrabState.Corpse)
+        if (currentState == BossState.Corpse)
         {
             AddDamageForce(collisionDir, 1f);
         }
@@ -136,10 +158,10 @@ public class BossController : MonoBehaviour
         rigidbody2D.AddForce(collisionDir * collisionForce, ForceMode2D.Impulse);
     }
 
-    public void SpawnBigExplosion()
+    public void SpawnBossExplosion()
     {
-        bloodParticles.transform.SetParent(transform.parent);
-        BigBadSingleton.Instance.GameplayManager.SpawnBigExplosionAt(transform.position);
+        //bloodParticles.transform.SetParent(transform.parent);
+        BigBadSingleton.Instance.GameplayManager.SpawnBossExplosionAt(transform.position);
     }
 
     public void SpawnExplosion()
@@ -154,7 +176,7 @@ public class BossController : MonoBehaviour
 
     private void Die()
     {
-        currentState = CrabState.Corpse;
+        currentState = BossState.Corpse;
         collisionSensor.gameObject.layer = LayerMask.NameToLayer("EnemyCorpse");
         visualAnimator.SetTrigger(animTrigger_die);
         if (room != null)
