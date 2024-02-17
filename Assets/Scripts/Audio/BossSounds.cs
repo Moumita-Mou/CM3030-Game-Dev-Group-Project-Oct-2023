@@ -7,6 +7,9 @@ public class BossSounds : MonoBehaviour
     [Header("Boss Damage SFX")]
     [SerializeField] AudioSource takeDamageSFX;
 
+    [Header("Boss Roar SFX")]
+    [SerializeField] AudioSource roarSFX;
+
     [Header("Boss Damage Roar SFX")]
     [SerializeField] AudioSource roarDamageSFX;
 
@@ -24,5 +27,11 @@ public class BossSounds : MonoBehaviour
     {
         //Debug.Log("Sound triggered");
         bossDeadSFX.Play();
+    }
+
+    public void BossRoarsSound()
+    {
+        //Debug.Log("Sound triggered");
+        roarSFX.Play();
     }
 }

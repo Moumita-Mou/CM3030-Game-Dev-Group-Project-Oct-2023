@@ -162,13 +162,24 @@ MonoBehaviour:
   damageFX: {fileID: 1959545514825041152}
   collisionSensor: {fileID: 1959545514519311643}
   bloodParticles: {fileID: 1959545513118594372}
-  lifePoints: 20
+  projectileNorm: {fileID: 179919203513312893, guid: 505b923848027d541aef3cae520450a0,
+    type: 3}
+  projectileEnraged: {fileID: 980261077754644892, guid: b88310b2b03650542a455db31abe36e1,
+    type: 3}
+  bossAudio: {fileID: 5560623314065052696}
+  lifePoints: 11
+  enragedLifePointThreshhold: 6
   moveSpeed: 2.5
   attackSpeed: 25
   attackWaitTime: 3
   attackRange: 1
-  attackScaleChange: 1
-  attackscaleChangeSpeed: 1
+  timeBetweenFires: 7.5
+  fireWaitTime: 1
+  fireRange: 3
+  fireAnimTime: 0.5
+  hitWaitTime: 1
+  bossFight: {fileID: 4236360438282448581, guid: ec72db53ce204484791a8f11c4f0c1a4,
+    type: 3}
   OnDie:
     m_PersistentCalls:
       m_Calls:
@@ -416,7 +427,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d82f5b54da7ae1f4aaad94d402cd4ff9, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -802,6 +813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   takeDamageSFX: {fileID: 2520036027037778984}
+  roarSFX: {fileID: 5412827151713900076}
   roarDamageSFX: {fileID: 6543557027902004363}
   bossDeadSFX: {fileID: 484926452941174252}
 --- !u!1001 &2152306680770503913

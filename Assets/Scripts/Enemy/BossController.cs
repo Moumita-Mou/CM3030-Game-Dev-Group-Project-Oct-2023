@@ -26,24 +26,37 @@ public class BossController : MonoBehaviour
     [SerializeField] private DamageColorFX damageFX;
     [SerializeField] private EnemyCollisionSensor collisionSensor;
     [SerializeField] private ParticleSystem bloodParticles;
+    [SerializeField] private BossProjectile projectileNorm;
+    [SerializeField] private BossProjectile projectileEnraged;
+    [SerializeField] private BossSounds bossAudio;
 
     [Header("Settings")] 
     [SerializeField] private int lifePoints;
+    [SerializeField] private int enragedLifePointThreshhold;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float attackSpeed;
     [SerializeField] private float attackWaitTime;
     [SerializeField] private float attackRange;
-    [SerializeField] private float attackScaleChange;
-    [SerializeField] private float attackscaleChangeSpeed;
-    
+
+    [Header("Projectile Settings")]
+    [SerializeField] private float timeBetweenFires;
+    [SerializeField] private float fireWaitTime;
+    [SerializeField] private float fireRange;
+    [SerializeField] private float fireAnimTime = 0.5f;
+    [SerializeField] private float hitWaitTime = 1;
+
+    [Header("Game State Check")]
+    [SerializeField] BossFight bossFight;
+
     [Header("Events")]
     [SerializeField] UnityEvent OnDie;
 
     private IPlayerFollower playerFollower;
     private BossState currentState;
     
-    private float attackTimeStamp = 0;
-    private float currentScale = 1;
+    private float attackTimeStamp;
+    private float fireTimeStamp;
+    private float fireAnimTimer;
 
     private MapEntry room;
     
@@ -51,6 +64,9 @@ public class BossController : MonoBehaviour
     private static readonly int animTrigger_die = Animator.StringToHash("dead");
 
     private bool CanAttack => attackTimeStamp < Time.time;
+    private bool CanFire => fireTimeStamp < Time.time;
+    private bool beginAttacking = false;
+    private bool bossIsEnraged = false;
 
     void Awake()
     {
@@ -62,16 +78,19 @@ public class BossController : MonoBehaviour
         currentState = BossState.Active;
         attackTimeStamp = 0;
 
-        visualAnimator.SetBool("boss-enter-animation", true);
-        Invoke("BossEnterStop", 3.2f);
+        StartCoroutine(BossEnterStop());
     }
 
     void Update()
     {
         var dt = Time.deltaTime;
-        
-        currentScale = Mathf.Lerp(currentScale, 1, attackscaleChangeSpeed * dt);
-        visualParent.localScale = Vector3.one * currentScale;
+
+        if (lifePoints == enragedLifePointThreshhold)
+        {
+            //visualAnimator.SetTrigger("become-enraged");
+            StartCoroutine(EnrageBoss());
+            lifePoints -= 1;
+        }
     }
 
     private void FixedUpdate()
@@ -87,26 +106,113 @@ public class BossController : MonoBehaviour
         {
             Attack(dt, moveDir);
         }
+        else if (sqrDistance <= fireRange * fireRange && CanFire && beginAttacking == true)
+        {
+            StartCoroutine(FireProjectile(moveDir));
+        }
         else
         {
             MoveTowardsPlayer(dt, moveDir);
-            //print(moveDir);
+        }
+        
+        // Check if game is over and stop all Coroutines (projectile firing)
+        if (bossFight.stopCoroutines)
+        {
+            rigidbody2D.velocity = Vector3.zero;
+            StopAllCoroutines();
         }
     }
 
-    private void BossEnterStop()
+    private IEnumerator BossEnterStop()
     {
+        bossAudio.BossRoarsSound();
+        visualAnimator.SetBool("boss-enter-animation", true);
+        BoxCollider2D bossCollider = collisionSensor.GetComponent<BoxCollider2D>();
+        bossCollider.enabled = false;
+        rigidbody2D.velocity = Vector3.zero;
+
+        yield return new WaitForSeconds(3.2f);
+
+        beginAttacking = true;
+        bossCollider.enabled = true;
         visualAnimator.SetBool("boss-enter-animation", false);
-        print("Boss now walks");
+    }
+
+    private IEnumerator EnrageBoss()
+    {
+        beginAttacking = false;
+        bossAudio.BossRoarsSound();
+        visualAnimator.SetBool("boss-becomes-enraged", true);
+        BoxCollider2D bossCollider = collisionSensor.GetComponent<BoxCollider2D>();
+        bossCollider.enabled = false;
+
+        yield return new WaitForSeconds(3.2f);
+        
+        visualAnimator.SetBool("boss-becomes-enraged", false);
+        bossIsEnraged = true;
+        beginAttacking = true;
+        bossCollider.enabled = true;
+
     }
 
     void Attack(float dt, Vector2 moveDir)
     {
-        currentScale = attackScaleChange;
         attackTimeStamp = Time.time + attackWaitTime;
         
         rigidbody2D.AddForce(moveDir * (attackSpeed * dt), ForceMode2D.Impulse);
         visualAnimator.SetTrigger(animTrigger_attack);
+    }
+
+    private IEnumerator FireProjectile(Vector3 projectileDir)
+    {
+        // Disable boss collider so that projectiles may fire
+        BoxCollider2D bossCollider = collisionSensor.GetComponent<BoxCollider2D>();
+        bossCollider.enabled = false;
+
+        if (!bossIsEnraged)
+        {
+            for (var i = 0; i < 5; i++)
+            {
+                fireTimeStamp = Time.time + timeBetweenFires;
+
+                if (Time.timeScale != 0)
+                {
+                    var projectile = BigBadSingleton.Instance.GameplayManager.SpawnTemporaryObject(this.projectileNorm, transform.position);
+                    projectile.Fire(BigBadSingleton.Instance.GameplayManager.PlayerRigidBody);
+                }
+                else
+                {
+                    rigidbody2D.velocity = Vector3.zero;
+                    StopAllCoroutines();
+                    break;
+                }
+
+                yield return new WaitForSeconds(0.25f);
+            }
+        }
+        else
+        {
+            for (var i = 0; i < 4; i++)
+            {
+
+                yield return new WaitForSeconds(1f);
+                fireTimeStamp = Time.time + timeBetweenFires;
+
+                if (Time.timeScale != 0)
+                {
+                    var projectile = BigBadSingleton.Instance.GameplayManager.SpawnTemporaryObject(this.projectileEnraged, transform.position);
+                    projectile.Fire(BigBadSingleton.Instance.GameplayManager.PlayerRigidBody);
+                }
+                else
+                {
+                    rigidbody2D.velocity = Vector3.zero;
+                    StopAllCoroutines();
+                    break;
+                }
+            }
+        }
+        
+        bossCollider.enabled = true;
     }
 
     void MoveTowardsPlayer(float dt, Vector2 moveDir)
@@ -123,7 +229,6 @@ public class BossController : MonoBehaviour
         }
 
         rigidbody2D.AddForce(moveDir * (moveSpeed * dt));
-        
     }
 
     public void OnHit(WeaponBase weapon)
