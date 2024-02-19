@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts; 
 
 public class ChestManager : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class ChestManager : MonoBehaviour
         isOpen = true;
         if (renderer != null)
             renderer.sprite = openState;
+
+        FindObjectOfType<GameplayManager>().OnChestOpened();
 
         return 1;
     }

@@ -8,6 +8,7 @@ using Scripts.UI;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Events;
+//using static System.Net.Mime.MediaTypeNames;
 
 namespace Scripts
 {
@@ -72,6 +73,31 @@ namespace Scripts
         public PlayerController Player => player;
 
         private bool fadeInComplete = false;
+
+        private int totalChestsOpened = 0; 
+        private const int totalChestCount = 3; 
+
+        public void OnChestOpened()
+        {
+            totalChestsOpened++;
+            if (totalChestsOpened <= totalChestCount)
+            {
+                string announcementMessage = $"Well done, you have {totalChestsOpened} out of {totalChestCount} keys!";
+                BigBadSingleton.Instance.UIManager.Announce(announcementMessage, 2f, () => { });
+
+                // Check if all keys have been collected
+                if (totalChestsOpened == totalChestCount)
+                {
+                    StartCoroutine(AnnounceBossFight());
+                }
+            }
+        }
+
+        IEnumerator AnnounceBossFight()
+        {
+            yield return new WaitForSeconds(2.5f); // Annoucement delay
+            BigBadSingleton.Instance.UIManager.Announce("Go fight the boss!", 2f, () => { });
+        }
 
         void Awake()
         {
@@ -394,6 +420,7 @@ namespace Scripts
 
         private void Start()
         {
+
             // Play background music at game startup
             bgAudio.playBackgroundMusic();
 
