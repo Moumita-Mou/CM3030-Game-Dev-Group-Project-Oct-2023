@@ -167,8 +167,8 @@ MonoBehaviour:
   projectileEnraged: {fileID: 980261077754644892, guid: b88310b2b03650542a455db31abe36e1,
     type: 3}
   bossAudio: {fileID: 5560623314065052696}
-  lifePoints: 11
-  enragedLifePointThreshhold: 6
+  lifePoints: 31
+  enragedLifePointThreshhold: 16
   moveSpeed: 2.5
   attackSpeed: 25
   attackWaitTime: 3
@@ -425,7 +425,8 @@ AudioSource:
   m_GameObject: {fileID: 4794902043636103912}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4425190589632463945, guid: 5a9e10ae803f7214b8c15913bac6f7e6,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: d82f5b54da7ae1f4aaad94d402cd4ff9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -521,7 +522,8 @@ AudioSource:
   m_GameObject: {fileID: 4794902043636103912}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4425190589632463945, guid: 5a9e10ae803f7214b8c15913bac6f7e6,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 268c4c2cd2981164fa1f85cef4c2d468, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -617,7 +619,8 @@ AudioSource:
   m_GameObject: {fileID: 4794902043636103912}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4425190589632463945, guid: 5a9e10ae803f7214b8c15913bac6f7e6,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: aa5cfc7d977b3e248b8b1c04629966f3, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -713,7 +716,8 @@ AudioSource:
   m_GameObject: {fileID: 4794902043636103912}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4425190589632463945, guid: 5a9e10ae803f7214b8c15913bac6f7e6,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 65fc0ecdb34e4a54ea17a6e071c73e7e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
