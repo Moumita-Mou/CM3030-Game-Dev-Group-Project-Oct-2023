@@ -8,6 +8,7 @@ using Scripts.UI;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Events;
+//using static System.Net.Mime.MediaTypeNames;
 
 namespace Scripts
 {
@@ -34,7 +35,7 @@ namespace Scripts
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Spawn variables for enemy wave spawning
         [Header("Enemy Wave Spawn Perameters")]
-        [SerializeField] private bool stopSpawning;
+        [SerializeField] public bool stopSpawning;
         [SerializeField] private float spawnTimer;
         [SerializeField] private float spawnDelay;
 
@@ -45,6 +46,7 @@ namespace Scripts
         //Trigger Audio and UI events
         [Header("Events")]
         [SerializeField] private UnityEvent GameOver;
+        public bool gameIsOver = false;
 
         // Array of enemies
         //private List<GameObject> enemies;
@@ -52,7 +54,6 @@ namespace Scripts
 
         // Wave and enemy type variables
         private int waveNumber = 0;
-        private EnemyType enemyType;
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private PlayerController player;
@@ -72,6 +73,31 @@ namespace Scripts
         public PlayerController Player => player;
 
         private bool fadeInComplete = false;
+
+        private int totalChestsOpened = 0; 
+        private const int totalChestCount = 3; 
+
+        public void OnChestOpened()
+        {
+            totalChestsOpened++;
+            if (totalChestsOpened <= totalChestCount)
+            {
+                string announcementMessage = $"Well done, you have {totalChestsOpened} out of {totalChestCount} keys!";
+                BigBadSingleton.Instance.UIManager.Announce(announcementMessage, 2f, () => { });
+
+                // Check if all keys have been collected
+                if (totalChestsOpened == totalChestCount)
+                {
+                    StartCoroutine(AnnounceBossFight());
+                }
+            }
+        }
+
+        IEnumerator AnnounceBossFight()
+        {
+            yield return new WaitForSeconds(2.5f); // Annoucement delay
+            BigBadSingleton.Instance.UIManager.Announce("Go fight the boss!", 2f, () => { });
+        }
 
         void Awake()
         {
@@ -255,15 +281,21 @@ namespace Scripts
             Instantiate(fxPalette.GetBomberExplosion(), worldPos, Quaternion.identity, fxContainer);
         }
 
+        public void SpawnBossExplosionAt(Vector3 worldPos)
+        {
+            Instantiate(fxPalette.GetBossExplosion(), worldPos, Quaternion.identity, fxContainer);
+        }
+
         // Checks if the current 'state of the game' (is the player dead, is the game paused, is the player in combat, etc.)
         // This is to trigger events which control background music play and possibly UI changes
         void CheckGameState()
         {
             // Enemy dies and Game Over
-            if (player.CurrentLife == 0)
+            if (player.CurrentLife <= 0)
             {
+                gameIsOver = true;
+                CancelInvoke("SpawnEnemies");
                 GameOver?.Invoke();
-                print("Game Over");
                 Time.timeScale = 0.0f;
             }
         }
@@ -394,6 +426,7 @@ namespace Scripts
 
         private void Start()
         {
+
             // Play background music at game startup
             bgAudio.playBackgroundMusic();
 
@@ -401,11 +434,6 @@ namespace Scripts
             if (!stopSpawning)
             {
                 InvokeRepeating("SpawnEnemies", spawnTimer, spawnDelay);
-            }
-
-            if(stopSpawning)
-            {
-                CancelInvoke("SpawnEnemies");
             }
 
             BigBadSingleton.Instance.UIManager.RoomCompletionInfo.ShowType(UIRoomCompletionInfo.InfoType.None);
@@ -467,16 +495,13 @@ namespace Scripts
             }
 
             UpdateCurrentMap();
-            
-            //if (Input.GetKeyUp(KeyCode.Alpha0))
-            //{
-            //    if (currentMap.TryGetRandomSpawnPosition(out var position))
-            //    {
-            //        SpawnEnemy(EnemyType.Crab, position, enemiesContainer);
-            //    }
-            //}
 
             CheckGameState();
+
+            if (stopSpawning)
+            {
+                CancelInvoke("SpawnEnemies");
+            }
         }
 
         public void DoSlowmoFX(float delay, float duration)

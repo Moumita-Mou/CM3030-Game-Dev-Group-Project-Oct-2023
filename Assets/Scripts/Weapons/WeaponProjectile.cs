@@ -11,7 +11,7 @@ namespace Scripts.Weapons
         [SerializeField] protected Collider2D collider;
 
         [Header("Settings")] 
-        [SerializeField] protected float speed = 1;
+        [SerializeField] protected float speed;
 
         protected Vector3 dir;
         

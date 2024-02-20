@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: FxPalette
   m_EditorClassIdentifier: 
   fxDictionary:
-    m_keys: 0000000001000000020000000300000004000000
+    m_keys: 000000000100000002000000030000000400000005000000
     m_values:
     - {fileID: 6504327031543133445, guid: 08294795ab6ec9c4e93151d6ccec6b12, type: 3}
     - {fileID: 3253021042240980284, guid: 9d3dae3723357a444b02c463b0bc975c, type: 3}
     - {fileID: 5273409377389226354, guid: ad0337fd09a79cc42b794dc15039e0d3, type: 3}
     - {fileID: 662974149035463107, guid: 09675dc2c9b2c4c45bf8a24b0f41b809, type: 3}
     - {fileID: 662974149035463107, guid: 1a0be4f61f97fe44bb1652f5d9b0597b, type: 3}
+    - {fileID: 1512168885484307261, guid: 3c9a219b1dec9c24db12b7c40d447ae0, type: 3}
