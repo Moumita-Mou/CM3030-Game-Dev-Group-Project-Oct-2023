@@ -34,7 +34,7 @@ namespace Scripts
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Spawn variables for enemy wave spawning
         [Header("Enemy Wave Spawn Perameters")]
-        [SerializeField] private bool stopSpawning;
+        [SerializeField] public bool stopSpawning;
         [SerializeField] private float spawnTimer;
         [SerializeField] private float spawnDelay;
 
@@ -45,6 +45,7 @@ namespace Scripts
         //Trigger Audio and UI events
         [Header("Events")]
         [SerializeField] private UnityEvent GameOver;
+        public bool gameIsOver = false;
 
         // Array of enemies
         //private List<GameObject> enemies;
@@ -52,7 +53,6 @@ namespace Scripts
 
         // Wave and enemy type variables
         private int waveNumber = 0;
-        private EnemyType enemyType;
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private PlayerController player;
@@ -255,15 +255,21 @@ namespace Scripts
             Instantiate(fxPalette.GetBomberExplosion(), worldPos, Quaternion.identity, fxContainer);
         }
 
+        public void SpawnBossExplosionAt(Vector3 worldPos)
+        {
+            Instantiate(fxPalette.GetBossExplosion(), worldPos, Quaternion.identity, fxContainer);
+        }
+
         // Checks if the current 'state of the game' (is the player dead, is the game paused, is the player in combat, etc.)
         // This is to trigger events which control background music play and possibly UI changes
         void CheckGameState()
         {
             // Enemy dies and Game Over
-            if (player.CurrentLife == 0)
+            if (player.CurrentLife <= 0)
             {
+                gameIsOver = true;
+                CancelInvoke("SpawnEnemies");
                 GameOver?.Invoke();
-                print("Game Over");
                 Time.timeScale = 0.0f;
             }
         }
@@ -403,11 +409,6 @@ namespace Scripts
                 InvokeRepeating("SpawnEnemies", spawnTimer, spawnDelay);
             }
 
-            if(stopSpawning)
-            {
-                CancelInvoke("SpawnEnemies");
-            }
-
             BigBadSingleton.Instance.UIManager.RoomCompletionInfo.ShowType(UIRoomCompletionInfo.InfoType.None);
 
             Time.timeScale = 0;
@@ -467,16 +468,13 @@ namespace Scripts
             }
 
             UpdateCurrentMap();
-            
-            //if (Input.GetKeyUp(KeyCode.Alpha0))
-            //{
-            //    if (currentMap.TryGetRandomSpawnPosition(out var position))
-            //    {
-            //        SpawnEnemy(EnemyType.Crab, position, enemiesContainer);
-            //    }
-            //}
 
             CheckGameState();
+
+            if (stopSpawning)
+            {
+                CancelInvoke("SpawnEnemies");
+            }
         }
 
         public void DoSlowmoFX(float delay, float duration)

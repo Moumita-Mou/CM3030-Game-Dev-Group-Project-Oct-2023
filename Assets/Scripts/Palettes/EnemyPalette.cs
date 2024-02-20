@@ -9,7 +9,8 @@ namespace Scripts
         None = 0,
         Crab = 1,
         Ghost = 2,
-        Bomber = 3
+        Bomber = 3,
+        Boss = 4
     }
 
     [Serializable]
