@@ -115,6 +115,10 @@ namespace Scripts.Player
                     {
                         canInteract.GetComponent<Lever>().changeState();
                     }
+                    else if (canInteract.CompareTag("Hint"))
+                    {
+                        canInteract.GetComponent<HintManager>().interact();
+                    }
                 }
                 else if (holdingItem != null)
                 {
@@ -133,7 +137,7 @@ namespace Scripts.Player
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (collider.CompareTag("PickUp") || collider.CompareTag("Lever"))
+            if (collider.CompareTag("PickUp") || collider.CompareTag("Lever") || collider.CompareTag("Hint"))
             {
                 canInteract = collider.gameObject;
             }
@@ -166,7 +170,7 @@ namespace Scripts.Player
 
         private void OnTriggerExit2D(Collider2D collider)
         {
-            if (collider.CompareTag("PickUp") || collider.CompareTag("Lever"))
+            if (collider.CompareTag("PickUp") || collider.CompareTag("Lever") || collider.CompareTag("Hint"))
             {
                 canInteract = null;
             }
