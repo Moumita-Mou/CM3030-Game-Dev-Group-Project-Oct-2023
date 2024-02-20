@@ -11,7 +11,8 @@ namespace Scripts
         BigExplosion1,
         BigExplosion2,
         BigExplosion3,
-        BomberExplosion
+        BomberExplosion,
+        BossExplosion
     }
 
     [Serializable]
@@ -44,6 +45,11 @@ namespace Scripts
         public GameObject GetBomberExplosion()
         {
             return GetFX(FXType.BomberExplosion);
+        }
+
+        public GameObject GetBossExplosion()
+        {
+            return GetFX(FXType.BossExplosion);
         }
     }
 }
