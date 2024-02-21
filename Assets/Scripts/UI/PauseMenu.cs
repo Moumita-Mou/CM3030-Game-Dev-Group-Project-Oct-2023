@@ -34,7 +34,7 @@ public class PauseMenu : MonoBehaviour
             {
                 Play();
             }
-            else
+            else if (Time.timeScale > 0)
             {
                 Stop();
             }
