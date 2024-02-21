@@ -44,6 +44,7 @@ public class ThirdPuzzleManager : MonoBehaviour
         GameObject barrierVis = new GameObject("BarrierVisual");
         SpriteRenderer spriteRenderer = barrierVis.AddComponent<SpriteRenderer>();
         spriteRenderer.sprite = barriedSprite;
+        spriteRenderer.sortingLayerName = "PressurePlate";
         barrierVis.transform.position = barrier.transform.position + spriteOffset;
 
         barrierVis.transform.parent = barrier.transform;
