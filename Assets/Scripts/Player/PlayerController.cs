@@ -32,13 +32,15 @@ namespace Scripts.Player
         private GameObject holdingItem = null;
         private GameObject canInteract = null;
 
-        private int keysCollected = 0;
-
         public int TotalLife => totalLife;
 
         public int CurrentLife { get; private set; }
 
         private EnemyType enemyType;
+
+        [Header("Puzzles")]
+        [SerializeField] BossDoorManager bossDoor;
+        private int keysCollected = 0;
 
         public void Init()
         {
@@ -151,12 +153,7 @@ namespace Scripts.Player
                 if (collider.gameObject.GetComponent<ChestManager>() != null)
                 {
                     keysCollected += collider.gameObject.GetComponent<ChestManager>().openChest();
-                }
-            } else if (collider.CompareTag("Door") && Input.GetKeyDown(KeyCode.E) && keysCollected == 3)
-            {
-                if (collider.gameObject.GetComponent<BossDoorManager>() != null)
-                {
-                    collider.gameObject.GetComponent<BossDoorManager>().openDoor();
+                    bossDoor.openDoor(keysCollected);    
                 }
             }
         }
