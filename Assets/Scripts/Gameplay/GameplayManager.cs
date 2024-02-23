@@ -93,6 +93,17 @@ namespace Scripts
             }
         }
 
+        public void OnHintInteraction(string text)
+        {
+            BigBadSingleton.Instance.UIManager.Announce(text, 2f, () => { });
+
+            // Check if all keys have been collected
+            if (totalChestsOpened == totalChestCount)
+            {
+                StartCoroutine(AnnounceBossFight());
+            }
+        }
+
         IEnumerator AnnounceBossFight()
         {
             yield return new WaitForSeconds(2.5f); // Annoucement delay
