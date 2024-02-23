@@ -4478,7 +4478,7 @@ MonoBehaviour:
   lifebar: {fileID: 1519423875}
   stopSpawning: 0
   spawnTimer: 1
-  spawnDelay: 60
+  spawnDelay: 40
   bgAudio: {fileID: 15231721}
   GameOver:
     m_PersistentCalls:
