@@ -3278,6 +3278,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012cf7a9837f157429b004fbf206cc05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1093901326 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4055654118557155427, guid: 8bc0366b32a31064c8837b7d9de9de3b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4055654118110790978}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f77da8d86948fe941a6a5ffb66c19ac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1099387332
 GameObject:
   m_ObjectHideFlags: 0
@@ -6841,5 +6853,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8428111411363024987, guid: 77712ce524948024487052288e61e349,
+        type: 3}
+      propertyPath: bossDoor
+      value: 
+      objectReference: {fileID: 1093901326}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77712ce524948024487052288e61e349, type: 3}

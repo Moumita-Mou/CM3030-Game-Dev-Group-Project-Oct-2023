@@ -19,8 +19,11 @@ public class BossDoorManager : MonoBehaviour
     }
 
     // Change state of the door to open
-    public void openDoor()
+    public void openDoor(int keysCollected)
     {
+        if (keysCollected < 3)
+            return;
+
         if (isOpen)
             return;
 
