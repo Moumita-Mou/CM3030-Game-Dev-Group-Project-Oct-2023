@@ -101,9 +101,6 @@ namespace Scripts.Player
 
         private void applyInteractionLogic()
         {
-            if (Time.timeScale <= 0)
-                return;
-
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (canInteract != null && holdingItem == null)
