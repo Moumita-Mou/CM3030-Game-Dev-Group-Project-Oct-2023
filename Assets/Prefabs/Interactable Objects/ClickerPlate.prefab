@@ -72,12 +72,12 @@ SpriteRenderer:
   m_SortingLayerID: -75649663
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300030, guid: 9603be6d9ac69924f945566fb9497bde, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f0ef25f628ab04d4f8df835a62962631, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.16, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -95,8 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2006a7db70f46ee4ea85022864ca2a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultState: {fileID: 21300030, guid: 9603be6d9ac69924f945566fb9497bde, type: 3}
-  pressedState: {fileID: 21300032, guid: 9603be6d9ac69924f945566fb9497bde, type: 3}
+  defaultState: {fileID: 21300000, guid: f0ef25f628ab04d4f8df835a62962631, type: 3}
+  pressedState: {fileID: 21300000, guid: 84da38cdf11f13843ab6e7fa25aa119a, type: 3}
   door: {fileID: 0}
   plateIndex: 0
 --- !u!61 &2013493485881011337
@@ -117,7 +117,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.16, y: 0.16}
-    newSize: {x: 0.16, y: 0.16}
+    newSize: {x: 0.16, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
