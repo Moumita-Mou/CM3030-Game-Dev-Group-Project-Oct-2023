@@ -83,7 +83,7 @@ namespace Scripts
             if (totalChestsOpened <= totalChestCount)
             {
                 string announcementMessage = $"Well done, you have {totalChestsOpened} out of {totalChestCount} keys!";
-                BigBadSingleton.Instance.UIManager.Announce(announcementMessage, 2f, () => { });
+                BigBadSingleton.Instance.UIManager.Announce(announcementMessage, 3f, () => { });
 
                 // Check if all keys have been collected
                 if (totalChestsOpened == totalChestCount)
@@ -95,7 +95,7 @@ namespace Scripts
 
         public void OnHintInteraction(string text)
         {
-            BigBadSingleton.Instance.UIManager.Announce(text, 2f, () => { });
+            BigBadSingleton.Instance.UIManager.Announce(text, 3f, () => { });
 
             // Check if all keys have been collected
             if (totalChestsOpened == totalChestCount)
@@ -268,7 +268,7 @@ namespace Scripts
             {
                 if (!currentMap.IsVisited && currentMap.TryGetAnnouncementText(out var text))
                 {
-                    BigBadSingleton.Instance.UIManager.Announce(text, 2f, currentMap.Visit);
+                    BigBadSingleton.Instance.UIManager.Announce(text, 3f, currentMap.Visit);
                 }
                 else
                 {
@@ -460,7 +460,7 @@ namespace Scripts
 
             BigBadSingleton.Instance.UIManager.FadeScreen.DoFadeIn(1f, 0.4f, () =>
             {
-                BigBadSingleton.Instance.UIManager.Announce(roomText, 1f, () =>
+                BigBadSingleton.Instance.UIManager.Announce(roomText, 3f, () =>
                 {
                     currentMap.Visit();
                 });
