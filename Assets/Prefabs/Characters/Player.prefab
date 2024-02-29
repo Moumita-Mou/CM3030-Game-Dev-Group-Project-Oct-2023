@@ -461,6 +461,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  bossDoor: {fileID: 0}
 --- !u!50 &8428111411363024986
 Rigidbody2D:
   serializedVersion: 4

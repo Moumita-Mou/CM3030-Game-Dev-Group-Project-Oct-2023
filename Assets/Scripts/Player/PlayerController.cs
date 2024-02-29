@@ -61,6 +61,18 @@ namespace Scripts.Player
                 OnHit?.Invoke();
             }
 
+            if (col.gameObject.tag == "Health")
+            {
+                print("Healed");
+                print(CurrentLife);
+                CurrentLife += 3;
+
+                if(CurrentLife > 9)
+                {
+                    CurrentLife = 9;
+                }
+            }
+
             // Play game over sound when player dies
             if (CurrentLife == 0)
             {

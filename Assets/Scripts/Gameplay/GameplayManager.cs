@@ -429,7 +429,7 @@ namespace Scripts
             }
 
             waveNumber++;
-            print(waveNumber);
+            //print(waveNumber);
 
             // Delay the spawning of enemies until the count-down is complete
             Invoke("EnemyWaveSpawner", 4.25f);
