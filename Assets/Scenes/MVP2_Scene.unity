@@ -1037,6 +1037,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetActive
       objectReference: {fileID: 0}
+    - target: {fileID: 4333996611595048479, guid: f93d7dfccf97085409c8c757a84f848d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5538445210095710929, guid: f93d7dfccf97085409c8c757a84f848d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 438
+      objectReference: {fileID: 0}
+    - target: {fileID: 5538445210095710929, guid: f93d7dfccf97085409c8c757a84f848d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 778
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f93d7dfccf97085409c8c757a84f848d, type: 3}
 --- !u!1001 &382127472
@@ -5270,7 +5285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc2dd2cdf4537a47aad62c7c4d6ce08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: Place boxes of top of pressure plates.
+  message: Place boxes on top of pressure plates.
 --- !u!61 &1775007219
 BoxCollider2D:
   m_ObjectHideFlags: 0

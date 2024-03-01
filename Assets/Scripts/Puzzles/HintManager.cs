@@ -6,7 +6,7 @@ using Scripts;
 
 public class HintManager : MonoBehaviour
 {
-    public string message = "You need to place boxes of top of pressure plates";
+    public string message = "You need to place boxes on top of the pressure plates!";
 
     public void interact()
     {
