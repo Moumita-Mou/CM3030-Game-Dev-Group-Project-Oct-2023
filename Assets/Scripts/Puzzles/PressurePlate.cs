@@ -19,13 +19,19 @@ public class PressurePlate : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collider)
     {
-        state = 1;
-        spriteRenderer.sprite = pressedState;
+        if (collider.CompareTag("PickUp"))
+        {
+            state = 1;
+            spriteRenderer.sprite = pressedState;
+        }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit2D(Collider2D collider)
     {
-        state = 0;
-        spriteRenderer.sprite = defaultState;
+        if (collider.CompareTag("PickUp"))
+        {
+            state = 0;
+            spriteRenderer.sprite = defaultState;
+        }
     }
 }

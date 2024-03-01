@@ -352,7 +352,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc2dd2cdf4537a47aad62c7c4d6ce08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  message: Pull the levers to find a valid combination and activate all light bulbs..
+  message: Interact with levers to find a correct combination and activate all light
+    bulbs.
 --- !u!61 &106675803
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1680,18 +1681,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1433025609313287956, guid: f93d7dfccf97085409c8c757a84f848d,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433025609313287956, guid: f93d7dfccf97085409c8c757a84f848d,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433025609313287956, guid: f93d7dfccf97085409c8c757a84f848d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1433025609313287956, guid: f93d7dfccf97085409c8c757a84f848d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1487928303}
+      objectReference: {fileID: 1029057245}
+    - target: {fileID: 1433025609313287956, guid: f93d7dfccf97085409c8c757a84f848d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1029057245}
+    - target: {fileID: 1433025609313287956, guid: f93d7dfccf97085409c8c757a84f848d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1433025609313287956, guid: f93d7dfccf97085409c8c757a84f848d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetActive
+      value: ResumeButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433025609313287956, guid: f93d7dfccf97085409c8c757a84f848d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ResumeButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433025609313287956, guid: f93d7dfccf97085409c8c757a84f848d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433025609313287956, guid: f93d7dfccf97085409c8c757a84f848d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4333996611595048479, guid: f93d7dfccf97085409c8c757a84f848d,
         type: 3}
@@ -4646,10 +4682,10 @@ RectTransform:
   m_Father: {fileID: 1771397600}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 720, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &869113985
 MonoBehaviour:
@@ -4704,16 +4740,16 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 3448028ae3f1b304692e8d7f0c5fec1e, type: 3}
     m_FontSize: 64
     m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 32
-    m_MaxSize: 64
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 300
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Destroy all enemies to continue
+  m_Text: 
 --- !u!222 &869113988
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5193,7 +5229,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -8220,7 +8256,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 720, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1771397601
 MonoBehaviour:
@@ -8229,7 +8265,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771397599}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
   m_Name: 
@@ -8259,8 +8295,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalFit: 2
-  m_VerticalFit: 2
+  m_HorizontalFit: 0
+  m_VerticalFit: 0
 --- !u!1 &1771409616
 GameObject:
   m_ObjectHideFlags: 0
