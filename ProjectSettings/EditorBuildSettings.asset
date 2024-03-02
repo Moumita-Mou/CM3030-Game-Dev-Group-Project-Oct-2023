@@ -8,16 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 545e7ed398b898c4b84618a8b53070ca
-  - enabled: 0
-    path: Assets/Scenes/MVP_Scene.unity
-    guid: c581679cd47bb9e47a55b3c44ffdae03
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MVP2_Scene.unity
     guid: 58c4ffb6faf268e4ab360e568f561e4c
-  - enabled: 0
-    path: Assets/Scenes/BossTestScene.unity
-    guid: 3137600d1850348448a95f002f365b72
-  - enabled: 1
-    path: Assets/Scenes/Game_wHealth_and_Sound.unity
-    guid: a6f1afed015f62c4a8a2482cdf1b53be
   m_configObjects: {}
