@@ -31,7 +31,7 @@ public class BossController : MonoBehaviour
     [SerializeField] private BossSounds bossAudio;
 
     [Header("Settings")] 
-    [SerializeField] private int lifePoints;
+    [SerializeField] public int lifePoints;
     [SerializeField] private int enragedLifePointThreshhold;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float attackSpeed;
@@ -87,7 +87,6 @@ public class BossController : MonoBehaviour
 
         if (lifePoints == enragedLifePointThreshhold)
         {
-            //visualAnimator.SetTrigger("become-enraged");
             StartCoroutine(EnrageBoss());
             lifePoints -= 1;
         }

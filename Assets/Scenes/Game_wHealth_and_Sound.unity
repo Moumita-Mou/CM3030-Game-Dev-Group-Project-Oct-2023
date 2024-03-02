@@ -2493,6 +2493,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2981957750874623652, guid: 06ee4848abe9b25409e5ceaff7fd2a14,
         type: 3}
+      propertyPath: GameWinCanvas
+      value: 
+      objectReference: {fileID: 1892978270}
+    - target: {fileID: 2981957750874623652, guid: 06ee4848abe9b25409e5ceaff7fd2a14,
+        type: 3}
       propertyPath: GameOverCanvas
       value: 
       objectReference: {fileID: 2144626222}
@@ -4319,6 +4324,31 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  GameWon:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 15231721}
+        m_MethodName: gameWonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1029057245}
+        m_MethodName: DisplayGameWinScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   gameIsOver: 0
 --- !u!114 &1278212880
 MonoBehaviour:
@@ -5657,6 +5687,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1792694847}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1892978270 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 474529098737602697, guid: f93d7dfccf97085409c8c757a84f848d,
+    type: 3}
+  m_PrefabInstance: {fileID: 317151222}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1901502978
 GameObject:
   m_ObjectHideFlags: 0
@@ -6761,12 +6797,12 @@ PrefabInstance:
     - target: {fileID: 8428111411363024985, guid: 77712ce524948024487052288e61e349,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.852
+      value: 0.278
       objectReference: {fileID: 0}
     - target: {fileID: 8428111411363024985, guid: 77712ce524948024487052288e61e349,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.327
+      value: 4.169
       objectReference: {fileID: 0}
     - target: {fileID: 8428111411363024985, guid: 77712ce524948024487052288e61e349,
         type: 3}

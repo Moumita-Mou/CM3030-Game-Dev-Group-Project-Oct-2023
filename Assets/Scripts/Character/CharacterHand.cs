@@ -20,7 +20,11 @@ namespace Scripts.Character
                 weapon.Fire();
                 handAnimation.SetFloat("AttackSpeed", weapon.GetAttackSpeed());
                 handAnimation.SetTrigger("Attack");
-                PlaySound?.Invoke();
+
+                if(Time.timeScale != 0.0f)
+                {
+                    PlaySound?.Invoke();
+                }  
             }
             
             handAnimation.SetBool("IsWalking", isWalking);
