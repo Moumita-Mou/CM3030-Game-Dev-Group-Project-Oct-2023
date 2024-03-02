@@ -12,6 +12,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject PauseMenuCanvas;
     [SerializeField] private GameObject OptionsMenuCanvas;
     [SerializeField] public GameObject GameOverCanvas;
+    [SerializeField] public GameObject GameWinCanvas;
 
 
     // Start is called before the first frame update
@@ -20,6 +21,7 @@ public class PauseMenu : MonoBehaviour
         PauseMenuCanvas.SetActive(false); // Ensure the pause menu canvas is not active when the scene starts
         OptionsMenuCanvas.SetActive(false);
         GameOverCanvas.SetActive(false);
+        GameWinCanvas.SetActive(false);
         Time.timeScale = 1f;
         Paused = false; // Explicitly set Paused to false
     }
@@ -75,5 +77,10 @@ public class PauseMenu : MonoBehaviour
     public void DisplayGameOverScreen()
     {
         GameOverCanvas.SetActive(true);
+    }
+
+    public void DisplayGameWinScreen()
+    {
+        GameWinCanvas.SetActive(true);
     }
 }

@@ -20,6 +20,7 @@ namespace Scripts
         [SerializeField] private SlowMoFX slowMoFX;
         [SerializeField] private ProtoCameraController cameraController;
         [SerializeField] private PlayerController playerPrefab;
+        //[SerializeField] private BossController bossPrefab;
 
         [Header("Containers")]
         [SerializeField] private Transform fxContainer;
@@ -46,7 +47,9 @@ namespace Scripts
         //Trigger Audio and UI events
         [Header("Events")]
         [SerializeField] private UnityEvent GameOver;
+        [SerializeField] private UnityEvent GameWon;
         public bool gameIsOver = false;
+        private bool gameIsWon = false;
 
         // Array of enemies
         //private List<GameObject> enemies;
@@ -91,6 +94,9 @@ namespace Scripts
                     StartCoroutine(AnnounceBossFight());
                 }
             }
+
+            // Play 'puzzle complete' sound
+            bgAudio.playKeyCollected();
         }
 
         public void OnHintInteraction(string text)
@@ -108,6 +114,9 @@ namespace Scripts
         {
             yield return new WaitForSeconds(2.5f); // Annoucement delay
             BigBadSingleton.Instance.UIManager.Announce("Go fight the boss!", 2f, () => { });
+
+            // Play door unlock sound
+            bgAudio.playBossDoorOpens();
         }
 
         void Awake()
@@ -295,19 +304,29 @@ namespace Scripts
         public void SpawnBossExplosionAt(Vector3 worldPos)
         {
             Instantiate(fxPalette.GetBossExplosion(), worldPos, Quaternion.identity, fxContainer);
+            gameIsWon = true;
         }
 
         // Checks if the current 'state of the game' (is the player dead, is the game paused, is the player in combat, etc.)
         // This is to trigger events which control background music play and possibly UI changes
         void CheckGameState()
         {
-            // Enemy dies and Game Over
+            // Player dies and Game Over
             if (player.CurrentLife <= 0)
             {
-                gameIsOver = true;
                 CancelInvoke("SpawnEnemies");
                 GameOver?.Invoke();
                 Time.timeScale = 0.0f;
+                gameIsOver = true;
+            }
+
+            // Boss dies and Game Won
+            else if (gameIsWon)
+            { 
+                CancelInvoke("SpawnEnemies");
+                GameWon?.Invoke();
+                Time.timeScale = 0.0f;
+                gameIsOver = true;
             }
         }
 
@@ -316,7 +335,7 @@ namespace Scripts
         {
             if(bgAudio.combatMusic.isPlaying == false)
             {
-                bgAudio.combatMusic.volume = 1.0f;
+                //bgAudio.combatMusic.volume = 1.0f;
                 bgAudio.playCombatMusic();
             }
 
@@ -429,7 +448,7 @@ namespace Scripts
             }
 
             waveNumber++;
-            print(waveNumber);
+            //print(waveNumber);
 
             // Delay the spawning of enemies until the count-down is complete
             Invoke("EnemyWaveSpawner", 4.25f);
@@ -494,24 +513,29 @@ namespace Scripts
             // Check if enemy wave has been cleared and play background music
             if(enemies.Length == 0 && bgAudio.outOfCombatMusic.isPlaying == false)
             {
-                float startingVol = bgAudio.combatMusic.volume;
+                //float startingVol = bgAudio.combatMusic.volume;
 
                 //try to fade out combat music (needs ammending)
-                while (bgAudio.combatMusic.volume > 0)
-                {
-                    bgAudio.combatMusic.volume -= startingVol - Time.deltaTime / 5;
-                }
+                //while (bgAudio.combatMusic.volume > 0)
+                //{
+                //    bgAudio.combatMusic.volume -= startingVol - Time.deltaTime / 5;
+                //}
 
                 bgAudio.playBackgroundMusic();
             }
 
             UpdateCurrentMap();
 
-            CheckGameState();
-
             if (stopSpawning)
             {
                 CancelInvoke("SpawnEnemies");
+            }
+
+            CheckGameState();
+
+            if (gameIsOver)
+            {
+                this.enabled = false;
             }
         }
 

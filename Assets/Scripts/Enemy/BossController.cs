@@ -31,7 +31,7 @@ public class BossController : MonoBehaviour
     [SerializeField] private BossSounds bossAudio;
 
     [Header("Settings")] 
-    [SerializeField] private int lifePoints;
+    [SerializeField] public int lifePoints;
     [SerializeField] private int enragedLifePointThreshhold;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float attackSpeed;
@@ -87,9 +87,15 @@ public class BossController : MonoBehaviour
 
         if (lifePoints == enragedLifePointThreshhold)
         {
-            //visualAnimator.SetTrigger("become-enraged");
             StartCoroutine(EnrageBoss());
             lifePoints -= 1;
+        }
+
+        // Check if game is over and stop all Coroutines (projectile firing)
+        if (bossFight.stopCoroutines)
+        {
+            rigidbody2D.velocity = Vector3.zero;
+            StopAllCoroutines();
         }
     }
 
@@ -113,13 +119,6 @@ public class BossController : MonoBehaviour
         else
         {
             MoveTowardsPlayer(dt, moveDir);
-        }
-        
-        // Check if game is over and stop all Coroutines (projectile firing)
-        if (bossFight.stopCoroutines)
-        {
-            rigidbody2D.velocity = Vector3.zero;
-            StopAllCoroutines();
         }
     }
 

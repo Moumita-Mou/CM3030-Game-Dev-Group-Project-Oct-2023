@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class BackgroundAudio : MonoBehaviour
 {
-    [Header("Game Over")]
+    [Header("Game Over SFX")]
     [SerializeField]
     AudioSource gameOverSFX;
+
+    [Header("Game Won SFX")]
+    [SerializeField]
+    AudioSource gameWonSFX;
 
     [Header("Wave Alert")]
     [SerializeField]
@@ -20,19 +24,32 @@ public class BackgroundAudio : MonoBehaviour
     [SerializeField]
     public AudioSource outOfCombatMusic;
 
+    [Header("Key Collected SFX")]
+    [SerializeField]
+    public AudioSource keyCollectedChime;
+
+    [Header("Boss Door Open SFX")]
+    [SerializeField]
+    public AudioSource bossDoorOpensSFX;
+
     public void gameOverSound()
     {
-        //Debug.Log("Sound triggered");
+        //Debug.Log("game over sound triggered");
         combatMusic.Stop();
         outOfCombatMusic.Stop();
         gameOverSFX.Play();
     }
 
+    public void gameWonSound()
+    {
+        //Debug.Log("game won sound triggered");
+        combatMusic.Stop();
+        outOfCombatMusic.Stop();
+        gameWonSFX.Play();
+    }
+
     public void WaveAlertSound()
     {
-        //Debug.Log("Sound triggered");
-        //combatMusic.Stop();
-        //outOfCombatMusic.Stop();
         incomingWaveSFX.Play();
     }
 
@@ -48,5 +65,15 @@ public class BackgroundAudio : MonoBehaviour
         //Debug.Log("Sound triggered");
         combatMusic.Stop();
         outOfCombatMusic.Play();
+    }
+
+    public void playKeyCollected()
+    {
+        keyCollectedChime.Play();
+    }
+
+    public void playBossDoorOpens()
+    {
+        bossDoorOpensSFX.Play();
     }
 }

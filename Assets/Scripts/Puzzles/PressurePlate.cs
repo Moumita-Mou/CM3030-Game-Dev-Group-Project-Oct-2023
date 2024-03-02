@@ -9,12 +9,19 @@ public class PressurePlate : MonoBehaviour
 
     int state = 0;
     SpriteRenderer spriteRenderer;
+    private AudioSource audioSource;
 
     public int getState() {return state;}
 
     private void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        audioSource = gameObject.GetComponent<AudioSource>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (state == 0) { audioSource.Play(); }
     }
 
     private void OnTriggerStay2D(Collider2D collider)
