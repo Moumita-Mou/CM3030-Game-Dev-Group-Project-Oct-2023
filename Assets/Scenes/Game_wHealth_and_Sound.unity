@@ -1076,6 +1076,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetActive
       objectReference: {fileID: 0}
+    - target: {fileID: 2012816066785998529, guid: f93d7dfccf97085409c8c757a84f848d,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6251372376108299157, guid: f93d7dfccf97085409c8c757a84f848d,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f93d7dfccf97085409c8c757a84f848d, type: 3}
 --- !u!1001 &382127472
@@ -4281,8 +4291,8 @@ MonoBehaviour:
   DoSlowMoFx: 1
   lifebar: {fileID: 1519423875}
   stopSpawning: 1
-  spawnTimer: 1
-  spawnDelay: 60
+  spawnTimer: 10
+  spawnDelay: 50
   bgAudio: {fileID: 15231721}
   GameOver:
     m_PersistentCalls:

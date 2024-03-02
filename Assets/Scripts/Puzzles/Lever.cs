@@ -7,6 +7,12 @@ public class Lever : MonoBehaviour
     [SerializeField] List<LightBulb> lightBulbs;
 
     private int state = 0;
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     public void changeState()
     {
@@ -19,5 +25,7 @@ public class Lever : MonoBehaviour
 
         // Lever should have a child for visual at 0 index
         transform.GetChild(0).rotation = Quaternion.Euler(0, 0, angle);
+
+        audioSource.Play();
     }
 }
