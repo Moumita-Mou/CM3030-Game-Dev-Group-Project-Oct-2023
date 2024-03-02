@@ -63,8 +63,6 @@ namespace Scripts.Player
 
             if (col.gameObject.tag == "Health")
             {
-                print("Healed");
-                print(CurrentLife);
                 CurrentLife += 3;
 
                 if(CurrentLife > 9)
