@@ -108,7 +108,7 @@ namespace Scripts.Player
 
             visual.UpdateHands(isWalking,
                 Input.GetMouseButton(secondaryWeaponMouseButton),
-                Input.GetMouseButton(mainWeaponMouseButton));
+                Input.GetMouseButton(mainWeaponMouseButton) || Input.GetKey(KeyCode.Space));
 
             applyInteractionLogic();
         }
