@@ -321,7 +321,7 @@ namespace Scripts
             }
 
             // Boss dies and Game Won
-            if (gameIsWon)
+            else if (gameIsWon)
             { 
                 CancelInvoke("SpawnEnemies");
                 GameWon?.Invoke();
@@ -335,7 +335,7 @@ namespace Scripts
         {
             if(bgAudio.combatMusic.isPlaying == false)
             {
-                bgAudio.combatMusic.volume = 1.0f;
+                //bgAudio.combatMusic.volume = 1.0f;
                 bgAudio.playCombatMusic();
             }
 
@@ -513,13 +513,13 @@ namespace Scripts
             // Check if enemy wave has been cleared and play background music
             if(enemies.Length == 0 && bgAudio.outOfCombatMusic.isPlaying == false)
             {
-                float startingVol = bgAudio.combatMusic.volume;
+                //float startingVol = bgAudio.combatMusic.volume;
 
                 //try to fade out combat music (needs ammending)
-                while (bgAudio.combatMusic.volume > 0)
-                {
-                    bgAudio.combatMusic.volume -= startingVol - Time.deltaTime / 5;
-                }
+                //while (bgAudio.combatMusic.volume > 0)
+                //{
+                //    bgAudio.combatMusic.volume -= startingVol - Time.deltaTime / 5;
+                //}
 
                 bgAudio.playBackgroundMusic();
             }

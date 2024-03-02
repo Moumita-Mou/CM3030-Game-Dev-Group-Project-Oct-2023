@@ -167,8 +167,8 @@ MonoBehaviour:
   projectileEnraged: {fileID: 980261077754644892, guid: b88310b2b03650542a455db31abe36e1,
     type: 3}
   bossAudio: {fileID: 5560623314065052696}
-  lifePoints: 11
-  enragedLifePointThreshhold: 6
+  lifePoints: 31
+  enragedLifePointThreshhold: 16
   moveSpeed: 2.5
   attackSpeed: 25
   attackWaitTime: 3

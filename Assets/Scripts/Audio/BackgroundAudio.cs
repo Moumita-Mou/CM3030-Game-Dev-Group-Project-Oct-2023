@@ -34,7 +34,7 @@ public class BackgroundAudio : MonoBehaviour
 
     public void gameOverSound()
     {
-        Debug.Log("game over sound triggered");
+        //Debug.Log("game over sound triggered");
         combatMusic.Stop();
         outOfCombatMusic.Stop();
         gameOverSFX.Play();
@@ -42,7 +42,7 @@ public class BackgroundAudio : MonoBehaviour
 
     public void gameWonSound()
     {
-        Debug.Log("game won sound triggered");
+        //Debug.Log("game won sound triggered");
         combatMusic.Stop();
         outOfCombatMusic.Stop();
         gameWonSFX.Play();

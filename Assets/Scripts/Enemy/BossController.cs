@@ -90,6 +90,13 @@ public class BossController : MonoBehaviour
             StartCoroutine(EnrageBoss());
             lifePoints -= 1;
         }
+
+        // Check if game is over and stop all Coroutines (projectile firing)
+        if (bossFight.stopCoroutines)
+        {
+            rigidbody2D.velocity = Vector3.zero;
+            StopAllCoroutines();
+        }
     }
 
     private void FixedUpdate()
@@ -112,13 +119,6 @@ public class BossController : MonoBehaviour
         else
         {
             MoveTowardsPlayer(dt, moveDir);
-        }
-        
-        // Check if game is over and stop all Coroutines (projectile firing)
-        if (bossFight.stopCoroutines)
-        {
-            rigidbody2D.velocity = Vector3.zero;
-            StopAllCoroutines();
         }
     }
 
