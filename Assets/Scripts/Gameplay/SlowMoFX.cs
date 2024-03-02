@@ -41,8 +41,8 @@ namespace Scripts
             Time.timeScale = 0;
 
             yield return new WaitForSecondsRealtime(delay);
-            
-            while (Time.timeScale < originalTimeScale)
+
+            while (Time.timeScale < originalTimeScale && !gameObject.GetComponent<GameplayManager>().gameIsOver)
             {
                 yield return new WaitForSecondsRealtime(duration);
                 Time.timeScale = originalTimeScale;
