@@ -16,6 +16,14 @@ public class PlayerSounds : MonoBehaviour
     [SerializeField]
     AudioSource gameOverSFX;
 
+    [Header("Box Pickup")]
+    [SerializeField]
+    AudioSource pickupBoxSFX;
+
+    [Header("Box Drop")]
+    [SerializeField]
+    AudioSource dropBoxSFX;
+
     public void PlayerTakesDamageSound()
     {
         //Debug.Log("Sound triggered");
@@ -32,5 +40,17 @@ public class PlayerSounds : MonoBehaviour
     {
         //Debug.Log("Sound triggered");
         gameOverSFX.Play();
+    }
+
+    public void BoxPickupSound()
+    {
+        //Debug.Log("Sound triggered");
+        pickupBoxSFX.Play();
+    }
+
+    public void BoxDropSound()
+    {
+        //Debug.Log("Sound triggered");
+        dropBoxSFX.Play();
     }
 }

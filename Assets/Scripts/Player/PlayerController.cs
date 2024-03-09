@@ -26,6 +26,9 @@ namespace Scripts.Player
         [SerializeField] UnityEvent OnHit;
         [SerializeField] UnityEvent OnDeath;
 
+        [Header("Box Pickup Audio")]
+        [SerializeField] PlayerSounds playerSounds;
+
         public Rigidbody2D Rigidbody => rigidbody2D;
 
         private bool isWalking;
@@ -119,6 +122,7 @@ namespace Scripts.Player
                 {
                     if (canInteract.CompareTag("PickUp"))
                     {
+                        playerSounds.BoxPickupSound();
                         holdingItem = canInteract;
                         holdingItem.GetComponent<BoxCollider2D>().enabled = false;
                         canInteract = null;
@@ -134,6 +138,11 @@ namespace Scripts.Player
                 }
                 else if (holdingItem != null)
                 {
+                    if (holdingItem.GetComponent<Transform>().tag == "PickUp")
+                    {
+                        playerSounds.BoxDropSound();
+                    }
+
                     holdingItem.transform.position = BigBadSingleton.Instance.GameplayManager.getGridCenterInWorldPos(transform.position);
                     holdingItem.GetComponent<BoxCollider2D>().enabled = true;
                     holdingItem = null;
