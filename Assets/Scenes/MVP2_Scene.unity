@@ -6714,7 +6714,29 @@ MonoBehaviour:
         m_CallState: 2
   GameWon:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1029057245}
+        m_MethodName: DisplayGameWinScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 15231721}
+        m_MethodName: gameWonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   gameIsOver: 0
 --- !u!114 &1278212880
 MonoBehaviour:
@@ -10335,12 +10357,12 @@ PrefabInstance:
     - target: {fileID: 8428111411363024985, guid: 77712ce524948024487052288e61e349,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.852
+      value: 0.089
       objectReference: {fileID: 0}
     - target: {fileID: 8428111411363024985, guid: 77712ce524948024487052288e61e349,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.327
+      value: 4.353
       objectReference: {fileID: 0}
     - target: {fileID: 8428111411363024985, guid: 77712ce524948024487052288e61e349,
         type: 3}
